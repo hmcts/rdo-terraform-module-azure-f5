@@ -30,4 +30,12 @@ resource "azurerm_virtual_machine" "vm" {
   os_profile_linux_config {
     disable_password_authentication = false
   }
+  provisioner "local-exec" {
+    command = <<EOF
+      git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
+      cd rdo-terraform-module-azure-f5/ansible;
+      sleep 30;
+      ansible-playbook -i '${azurerm_public_ip.pip_mgmt.ip_address},' f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}'
+      EOF
+  }
 }
