@@ -5,6 +5,7 @@ resource "azurerm_virtual_machine" "vm" {
   vm_size = "${var.vm_size}"
   network_interface_ids = ["${azurerm_network_interface.nic_mgmt.id}", "${var.nic_vip_id}"]
   primary_network_interface_id = "${azurerm_network_interface.nic_mgmt.id}"
+  delete_os_disk_on_termination             = true
   storage_image_reference {
     publisher = "f5-networks"
     offer = "f5-big-ip-best"
