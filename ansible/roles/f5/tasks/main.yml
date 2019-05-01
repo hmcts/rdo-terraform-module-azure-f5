@@ -4,3 +4,13 @@
     ntp_servers: "{{ ntp_servers }}"
     provider: "{{ provider }}"
   delegate_to: localhost
+
+
+- name: Create a base SMTP server configuration
+  bigip_smtp:
+    name: smtp_reform
+    smtp_server: reformMgmtMTA.reform.hmcts.net
+    local_host_name: dmz.reform.hmcts.net
+    from_address: dmz@reform.hmcts.net
+    state: present
+  delegate_to: localhost
