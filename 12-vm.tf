@@ -37,48 +37,48 @@ resource "azurerm_virtual_machine" "vm" {
   }
 }
 
-#data "template_file" "inventory" {
-#    template                            = "${file("${path.module}/templates/inventory.tpl")}"
+data "template_file" "inventory" {
+    template                            = "${file("${path.module}/templates/inventory.tpl")}"
 
-#    depends_on = [
-#        "azurerm_virtual_machine.vm"
-#    ]
+    depends_on = [
+        "azurerm_virtual_machine.vm"
+    ]
 
-#    vars {
-#        admin_username                  = "${var.vm_username}"
-#        admin_password                  = "${var.vm_password}"
-#        public_ip                       = "${azurerm_public_ip.pip_mgmt.ip_address}"
-#    }
-#}
+    vars {
+        admin_username                  = "${var.vm_username}"
+        admin_password                  = "${var.vm_password}"
+        public_ip                       = "${azurerm_public_ip.pip_mgmt.ip_address}"
+    }
+}
 
-#resource "null_resource" "update_inventory" {
+resource "null_resource" "update_inventory" {
 
- #   triggers {
-#        template                        = "${data.template_file.inventory.rendered}"
-#    }
+    triggers {
+        template                        = "${data.template_file.inventory.rendered}"
+    }
 
-#    provisioner "local-exec" {
-#        command                         = "echo '${data.template_file.inventory.rendered}' > ${path.module}/ansible/inventory"
-#    }
-#}
+    provisioner "local-exec" {
+        command                         = "echo '${data.template_file.inventory.rendered}' > ${path.module}/ansible/inventory"
+    }
+}
 
-#resource "null_resource" "ansible-runs" {
-#    triggers = {
-#      always_run                        = "${timestamp()}"
-#    }
+resource "null_resource" "ansible-runs" {
+    triggers = {
+      always_run                        = "${timestamp()}"
+    }
 
-#    depends_on = [
-#        "azurerm_virtual_machine.vm",
-#        "azurerm_network_interface.nic_mgmt",
-#        "azurerm_public_ip.pip_mgmt"
-#    ]
+    depends_on = [
+        "azurerm_virtual_machine.vm",
+        "azurerm_network_interface.nic_mgmt",
+        "azurerm_public_ip.pip_mgmt"
+    ]
 
-#  provisioner "local-exec" {
-#    command = <<EOF
-#      git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-#      cd rdo-terraform-module-azure-f5/ansible;
-#      sleep 30;
-#      ansible-playbook -i inventory f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}'
-#      EOF
-#  }
-#}
+  provisioner "local-exec" {
+    command = <<EOF
+      git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
+      cd rdo-terraform-module-azure-f5/ansible;
+      sleep 30;
+      ansible-playbook -i inventory f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}'
+      EOF
+  }
+}
