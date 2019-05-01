@@ -66,7 +66,7 @@ resource "null_resource" "ansible-runs" {
     depends_on = [
         "azurerm_virtual_machine.vm",
         "azurerm_network_interface.nic_mgmt",
-        "azurerm_public_ip.pip-ansible"
+        "azurerm_public_ip.pip_mgmt"
     ]
 
   provisioner "local-exec" {
