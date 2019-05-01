@@ -15,9 +15,13 @@ variable "vm_username" {
 }
 
 variable "vm_password" {
-  description = "Password to use for the appliance"
+  description                         = "Password to use for the appliance"
 }
 
 variable "nic_vip_id" {
-  description = "ID of the NIC to be used for vip access"
+  description                         = "ID of the NIC to be used for vip access"
+}
+
+variable "ssh_public_key" {
+  description                         = "SSH Public Key to access host"
 }

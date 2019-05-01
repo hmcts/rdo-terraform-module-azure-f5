@@ -1,9 +1,3 @@
-data "azurerm_key_vault_secret" "ssh-public-key" {
-name                                    = "ssh-public-key"
-vault_uri                               = "${var.key_vault_uri}"
-}
-
-
 resource "azurerm_virtual_machine" "vm" {
   name                                  = "${var.vm_name}"
   location                              = "${data.azurerm_resource_group.rg.location}"
@@ -38,7 +32,7 @@ resource "azurerm_virtual_machine" "vm" {
     disable_password_authentication     = false
   ssh_keys {
     path                                = "/home/${var.vm_username}/.ssh/authorized_keys"
-    key_data                            = "${data.azurerm_key_vault_secret.ssh-public-key.value}"
+    key_data                            = "${file("${var.ssh_public_key}")}"
   }
   }
 }
