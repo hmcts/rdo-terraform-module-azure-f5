@@ -7,8 +7,12 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Install AS3
-  bigip_iapplx_package:
-    package: "{{ package }}"
-    provider: "{{ provider }}"
-  delegate_to: localhost
+- name: Downloads AS3
+  get_url:
+    url: "{{ as3_url }}"
+    dest: /tmp/as3.rpm
+
+- name: Install AS3 rpm
+  bigip_lx_package:
+    package: /tmp/as3.rpm
+    provider:  "{{ provider }}"
