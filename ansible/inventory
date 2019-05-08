@@ -1,0 +1,7 @@
+[f5]
+52.151.103.61
+
+[f5:vars]
+ansible_connection=ssh
+ansible_user=local-admin
+ansible_pass=hzMCf21DK30pTwa

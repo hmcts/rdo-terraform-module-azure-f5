@@ -1,21 +1,30 @@
 ---
-- name: Set the hostname of the BIG-IP
-  bigip_hostname:
-    hostname: ansible.did.it.work.com
+- name: Disable the setup utility
+  bigip_sys_global:
+    gui_setup: no
+    banner_text: "{{ bannertxt }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Update password
-  bigip_user:
-    state: present
-    username_credential: admin
-    password_credential: admin
-    provider: "{{ provider }}"
+- name: Set the hostname of the BIG-IP
+  bigip_hostname:
+    hostname: "{{ hostname }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+
+- name: Set the DNS settings on the BIG-IP
+  bigip_device_dns:
+    name_servers: "{{ name_servers }}"
+    search:
+      - localdomain
+      - lab.local
+    provider:  "{{ provider }}"
   delegate_to: localhost
 
 - name: 'f5 | set ntp'
   bigip_device_ntp:
     ntp_servers: "{{ ntp_servers }}"
+    timezone: "{{ timezone }}"
     provider: "{{ provider }}"
   delegate_to: localhost
 
@@ -23,9 +32,72 @@
 - name: Create a base SMTP server configuration
   bigip_smtp:
     name: smtp_reform
-    smtp_server: reformMgmtMTA.reform.hmcts.net
-    local_host_name: dmz.reform.hmcts.net
-    from_address: dmz@reform.hmcts.net
+    smtp_server: "{{ smtp_server }}"
+    local_host_name: "{{ local_host_name }}"
+    from_address: "{{ from_address }}"
     state: present
     provider: "{{ provider }}"
   delegate_to: localhost
+
+- name: Create VLAN transit
+  bigip_vlan:
+    name: dmz-transit
+    untagged_interface: 1.1
+    provider: "{{ provider }}"
+  delegate_to: localhost
+
+- name: Create VLAN mgnt
+  bigip_vlan:
+    name: dmz-mgnt
+    untagged_interface: 1.2
+    provider: "{{ provider }}"
+  delegate_to: localhost
+
+#- name: Create static route with gateway address
+#  bigip_static_route:
+#    destination: 0.0.0.0
+#    netmask: 0.0.0.0
+#    gateway_address: 10.99.64.1
+#    name: default-route
+#    provider: "{{ provider }}"
+#  delegate_to: localhost
+
+- name: Create a pool
+  bigip_pool:
+        provider: "{{ provider }}"
+        lb_method: ratio-member
+        name: web
+        slow_ramp_time: 120
+  delegate_to: localhost
+
+- name: Add members to pool
+  bigip_pool_member:
+        provider: "{{ provider }}"
+        description: "webserver {{ item.name }}"
+        host: "{{ item.host }}"
+        name: "{{ item.name }}"
+        pool: web
+        port: 80
+  with_items:
+        - host: 10.10.10.10
+          name: web01
+        - host: 10.10.10.20
+          name: web02
+  delegate_to: localhost
+
+- name: Create a VIP
+  bigip_virtual_server:
+        provider: "{{ provider }}"
+        description: foo-vip
+        destination: 172.16.10.108
+        name: vip-1
+        pool: web
+        port: 80
+        snat: Automap
+        profiles:
+          - http
+          - clientssl
+  delegate_to: localhost
+
+- name: Installing AW3 iApp
+  include_tasks: install_aw3.yml

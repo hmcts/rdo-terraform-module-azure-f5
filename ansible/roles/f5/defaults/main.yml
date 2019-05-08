@@ -4,3 +4,19 @@ ntp_servers:
   - 1.pool.ntp.org
   - 2.pool.ntp.org
   - 3.pool.ntp.org
+timezone: UTC
+
+name_servers:       
+  - 172.16.0.10
+
+hostname: "Ive.finally.got.this.working.com"
+
+bannertxt: "Please Go Aways"
+
+# SMTP Settings
+smtp_server: reformMgmtMTA.reform.hmcts.net
+local_host_name: dmz.reform.hmcts.net
+from_address: dmz@reform.hmcts.net
+
+# iApp Install
+package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"
