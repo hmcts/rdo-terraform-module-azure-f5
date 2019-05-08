@@ -46,13 +46,6 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Create VLAN mgnt
-  bigip_vlan:
-    name: dmz-mgnt
-    untagged_interface: 1.2
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
 #- name: Create static route with gateway address
 #  bigip_static_route:
 #    destination: 0.0.0.0
