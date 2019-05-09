@@ -25,3 +25,8 @@ variable "nic_vip_id" {
 variable "ssh_public_key" {
   description                         = "SSH Public Key to access host"
 }
+
+variable "selfip_private_ip" {
+  description                         = "Needs to be the F5 IP Address"
+}
+
