@@ -1,8 +1,9 @@
 ---
-- name: Waitings for F5, first to come online
-  wait_for: timeout=300
-  delegate_to: localhost
-  run_once: true
+# Enable when first provision new infrastructure
+#  - name: Waitings for F5, first to come online
+#  wait_for: timeout=600
+#  delegate_to: localhost
+#  run_once: true
 
 - name: Disable the setup utility
   bigip_sys_global:
