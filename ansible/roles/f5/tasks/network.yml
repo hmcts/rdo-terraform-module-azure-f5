@@ -1,0 +1,8 @@
+---
+
+- name: Create VLAN transit
+  bigip_vlan:
+    name: dmz-transit
+    untagged_interface: 1.1
+    provider: "{{ provider }}"
+  delegate_to: localhost

@@ -19,4 +19,4 @@ local_host_name: dmz.reform.hmcts.net
 from_address: dmz@reform.hmcts.net
 
 # iApp Install
-as3_url: "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.5.0/f5-appsvcs-3.5.0-3.noarch.rpm"
+package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"

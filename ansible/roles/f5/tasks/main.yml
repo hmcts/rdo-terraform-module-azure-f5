@@ -12,39 +12,11 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Set the DNS settings on the BIG-IP
-  bigip_device_dns:
-    name_servers: "{{ name_servers }}"
-    search:
-      - localdomain
-      - lab.local
-    provider:  "{{ provider }}"
-  delegate_to: localhost
+- name: System Setup
+  include_tasks: system.yml
 
-- name: 'f5 | set ntp'
-  bigip_device_ntp:
-    ntp_servers: "{{ ntp_servers }}"
-    timezone: "{{ timezone }}"
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
-
-- name: Create a base SMTP server configuration
-  bigip_smtp:
-    name: smtp_reform
-    smtp_server: "{{ smtp_server }}"
-    local_host_name: "{{ local_host_name }}"
-    from_address: "{{ from_address }}"
-    state: present
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
-- name: Create VLAN transit
-  bigip_vlan:
-    name: dmz-transit
-    untagged_interface: 1.1
-    provider: "{{ provider }}"
-  delegate_to: localhost
+- name: Network Setup
+  include_tasks: network.yml
 
 #- name: Create static route with gateway address
 #  bigip_static_route:
@@ -92,5 +64,5 @@
           - clientssl
   delegate_to: localhost
 
-- name: Installing AW3 iApp
-  include_tasks: install_aw3.yml
+- name: Installing AS3 iApp
+  include_tasks: as3.yml
