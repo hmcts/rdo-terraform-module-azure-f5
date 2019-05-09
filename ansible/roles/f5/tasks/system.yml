@@ -2,9 +2,7 @@
 - name: Set the DNS settings on the BIG-IP
   bigip_device_dns:
     name_servers: "{{ name_servers }}"
-    search:
-      - localdomain
-      - lab.local
+    search: "{{ dns_search }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 

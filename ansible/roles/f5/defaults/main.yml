@@ -9,9 +9,13 @@ timezone: UTC
 name_servers:       
   - 172.16.0.10
 
+dns_search:
+  - localdomain
+  - lab.local
+
 hostname: "Ive.finally.got.this.working.com"
 
-bannertxt: "Please Go Aways"
+bannertxt: "------- Please Go Away -------"
 
 # SMTP Settings
 smtp_server: reformMgmtMTA.reform.hmcts.net
@@ -20,3 +24,7 @@ from_address: dmz@reform.hmcts.net
 
 # iApp Install
 package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"
+
+vlan_name: "dmz-transit"
+
+self_ip: ${f5_selfip}

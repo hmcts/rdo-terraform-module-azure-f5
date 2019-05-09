@@ -2,7 +2,16 @@
 
 - name: Create VLAN transit
   bigip_vlan:
-    name: dmz-transit
+    name: "{{ vlan_name }}"
     untagged_interface: 1.1
+    provider: "{{ provider }}"
+  delegate_to: localhost
+
+- name: Create Self IP
+  bigip_selfip:
+    name: "{{ vlan_name }}"
+    address: "{{ self_ip }}"
+    netmask: 255.255.255.0
+    vlan: "{{ vlan_name }}"
     provider: "{{ provider }}"
   delegate_to: localhost
