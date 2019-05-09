@@ -11,7 +11,7 @@
   bigip_selfip:
     name: "{{ vlan_name }}"
     address: "{{ self_ip }}"
-    netmask: 255.255.255.0
+    netmask: "{{ self_subnet }}"
     vlan: "{{ vlan_name }}"
     provider: "{{ provider }}"
   delegate_to: localhost

@@ -30,3 +30,6 @@ variable "selfip_private_ip" {
   description                         = "Needs to be the F5 IP Address"
 }
 
+variable "selfip_subnet" {
+  description                         = "Subnet for the F5 IP Address"
+}

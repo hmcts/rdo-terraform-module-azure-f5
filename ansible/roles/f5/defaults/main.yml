@@ -28,3 +28,5 @@ package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"
 vlan_name: "dmz-transit"
 
 self_ip: "{{ f5_selfip }}"
+
+self_subnet: "{{ f5_selfsubnet }}"
