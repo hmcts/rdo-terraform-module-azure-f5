@@ -15,7 +15,15 @@ dns_search:
 
 hostname: "Ive.finally.got.this.working.com"
 
-bannertxt: "------- Please Go Away -------"
+bannertxt: |
+  "This is a  private system,  only use this
+  system if  you have  specific  authority  to do so.
+  Otherwise you are  liable to  prosecution under the
+  Computer Misuse Act 1990.  If you  do not  have the
+  express permission of the operator or owner of this
+  system log off now to avoid prosecution.
+  Authorized uses only.
+  All activity may be monitored and reported."
 
 # SMTP Settings
 smtp_server: reformMgmtMTA.reform.hmcts.net
