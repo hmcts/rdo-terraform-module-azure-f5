@@ -5,12 +5,10 @@
 #  delegate_to: localhost
 #  run_once: true
 
-- wait_for:
-    port: 443
-    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
-    search_regex: OpenSSH
-    delay: 10
-  connection: local
+- name: Wait for BIG-IP to be ready to take configuration
+  bigip_wait:
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
 - name: Disable the setup utility
   bigip_sys_global:
