@@ -5,6 +5,13 @@
 #  delegate_to: localhost
 #  run_once: true
 
+- wait_for:
+    port: 443
+    host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+    search_regex: OpenSSH
+    delay: 10
+  connection: local
+
 - name: Disable the setup utility
   bigip_sys_global:
     gui_setup: no
