@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine_extension" "vm_exts_bootstrap" {
 
  settings = <<SETTINGS
    {
-       "commandToExecute": "bigstart restart mcpd && sleep 60 && tmsh modify sys db configsync.allowmanagement value enable && tmsh modify sys db provision.1nic value forced_enable && tmsh modify sys global-settings hostname ${element(azurerm_virtual_machine.vm.*.name, count.index)}.local && tmsh mv cm device bigip1 ${element(azurerm_virtual_machine.vm.*.name, count.index)} && echo tmsh modify ltm virtual _cloud_lb_probe_listener_ enabled>>/config/failover/active;echo tmsh modify ltm virtual _cloud_lb_probe_listener_ disabled>>/config/failover/standby;tmsh -q create ltm virtual _cloud_lb_probe_listener_ destination ${element(azurerm_network_interface.nic_mgmt.*.ip_configuration.0.private_ip_address, count.index)}:694 source 168.63.129.16/32 ip-protocol tcp"
+       "commandToExecute": "bigstart restart mcpd && sleep 60 && tmsh modify sys db configsync.allowmanagement value enable && tmsh modify sys db provision.1nic value forced_enable && tmsh modify sys global-settings hostname ${element(azurerm_virtual_machine.vm.*.name, count.index)}.local && tmsh mv cm device bigip1 ${element(azurerm_virtual_machine.vm.*.name, count.index)} && echo tmsh modify ltm virtual _cloud_lb_probe_listener_ enabled>>/config/failover/active;echo tmsh modify ltm virtual _cloud_lb_probe_listener_ disabled>>/config/failover/standby;tmsh -q create ltm virtual _cloud_lb_probe_listener_ destination ${element(azurerm_network_interface.nic_mgmt.*.private_ip_address, count.index)}:694 source 168.63.129.16/32 ip-protocol tcp"
    }
  SETTINGS
 }
