@@ -37,9 +37,9 @@ resource "azurerm_virtual_machine" "vm" {
   }
 }
 
-
+/*
 resource "azurerm_virtual_machine_extension" "vm_exts_bootstrap" {
- count = 2
+ count                = 1
  name                 = "f5bigip_1nic_ha_fo_bootstrap"
  location             = "${data.azurerm_resource_group.rg.location}"
  resource_group_name  = "${data.azurerm_resource_group.rg.name}"
@@ -54,8 +54,8 @@ resource "azurerm_virtual_machine_extension" "vm_exts_bootstrap" {
    }
  SETTINGS
 }
+*/
 
-/*
 data "template_file" "inventory" {
     template                            = "${file("${path.module}/templates/inventory.tpl")}"
 
@@ -102,4 +102,3 @@ resource "null_resource" "ansible-runs" {
   }
 }
 
-*/

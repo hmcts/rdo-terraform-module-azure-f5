@@ -5,6 +5,10 @@
 #  delegate_to: localhost
 #  run_once: true
 
+roles:
+  - role: f5devcentral.f5ansible
+
+tasks:
 - name: Wait for BIG-IP to be ready to take configuration
   bigip_wait:
     provider:  "{{ provider }}"
