@@ -1,10 +1,4 @@
 ---
-# Enable when first provision new infrastructure
-#  - name: Waitings for F5, first to come online
-#  wait_for: timeout=600
-#  delegate_to: localhost
-#  run_once: true
-
 - name: Wait for BIG-IP to be ready to take configuration
   bigip_wait:
     provider:  "{{ provider }}"
