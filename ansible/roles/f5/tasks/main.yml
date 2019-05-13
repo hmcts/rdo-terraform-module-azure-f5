@@ -5,17 +5,17 @@
 #  delegate_to: localhost
 #  run_once: true
 
-#- name: Wait for BIG-IP to be ready to take configuration
-#  bigip_wait:
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
+- name: Wait for BIG-IP to be ready to take configuration
+  bigip_wait:
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
-#- name: Disable the setup utility
-#  bigip_sys_global:
-#    gui_setup: no
-#    banner_text: "{{ bannertxt }}"
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
+- name: Disable the setup utility
+  bigip_sys_global:
+    gui_setup: no
+    banner_text: "{{ bannertxt }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
 - name: Set the hostname of the BIG-IP
   bigip_hostname:
