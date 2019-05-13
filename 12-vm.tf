@@ -37,6 +37,25 @@ resource "azurerm_virtual_machine" "vm" {
   }
 }
 
+
+resource "azurerm_virtual_machine_extension" "vm_exts_bootstrap" {
+ count = 2
+ name                 = "f5bigip_1nic_ha_fo_bootstrap"
+ location             = "${data.azurerm_resource_group.rg.location}"
+ resource_group_name  = "${data.azurerm_resource_group.rg.name}"
+ virtual_machine_name = "${element(azurerm_virtual_machine.vm.*.name, count.index)}"
+ publisher            = "Microsoft.Azure.Extensions"
+ type                 = "CustomScript"
+ type_handler_version = "2.0"
+
+ settings = <<SETTINGS
+   {
+       "commandToExecute": "bigstart restart mcpd && sleep 60 && tmsh modify sys db configsync.allowmanagement value enable && tmsh modify sys db provision.1nic value forced_enable && tmsh modify sys global-settings hostname ${element(azurerm_virtual_machine.vm.*.name, count.index)}.local && tmsh mv cm device bigip1 ${element(azurerm_virtual_machine.vm.*.name, count.index)} && echo tmsh modify ltm virtual _cloud_lb_probe_listener_ enabled>>/config/failover/active;echo tmsh modify ltm virtual _cloud_lb_probe_listener_ disabled>>/config/failover/standby;tmsh -q create ltm virtual _cloud_lb_probe_listener_ destination ${element(azurerm_network_interface.nic_mgmt.*.ip_configuration.0.private_ip_address, count.index)}:694 source 168.63.129.16/32 ip-protocol tcp"
+   }
+ SETTINGS
+}
+
+/*
 data "template_file" "inventory" {
     template                            = "${file("${path.module}/templates/inventory.tpl")}"
 
@@ -83,3 +102,4 @@ resource "null_resource" "ansible-runs" {
   }
 }
 
+*/
