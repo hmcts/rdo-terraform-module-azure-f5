@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 - name: Set the hostname of the BIG-IP
   bigip_hostname:
     hostname: ansible.did.it.work.com
@@ -29,3 +30,35 @@
     state: present
     provider: "{{ provider }}"
   delegate_to: localhost
+=======
+- name: Wait for BIG-IP to be ready to take configuration
+  bigip_wait:
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+
+- name: Disable the setup utility
+  bigip_sys_global:
+    gui_setup: no
+    banner_text: "{{ bannertxt }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+
+- name: Set the hostname of the BIG-IP
+  bigip_hostname:
+    hostname: "{{ hostname }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+
+- name: System Setup
+  include_tasks: system.yml
+
+- name: Network Setup
+  include_tasks: network.yml
+
+- name: Installing AS3 iApp
+  include_tasks: as3.yml
+
+# Example Node / Pool and Virtual Server Server
+#- name: Installing AS3 iApp
+# include_tasks: as3.yml
+>>>>>>> 1c539f76c9c9e4efecc4e0e97703aacfaa4366cc

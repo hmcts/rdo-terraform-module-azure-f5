@@ -10,7 +10,7 @@ resource "azurerm_virtual_machine" "vm" {
     publisher                           = "f5-networks"
     offer                               = "f5-big-ip-best"
     sku                                 = "${var.vm_sku}"
-    version                             = "latest"
+    version                             = "14.0.001000" #"latest" - lastest 14.0.003xxx - takes too long to provision
   }
   plan {
     publisher                           = "f5-networks"
@@ -78,7 +78,8 @@ resource "null_resource" "ansible-runs" {
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
       cd rdo-terraform-module-azure-f5/ansible;
       sleep 30;
-      ansible-playbook -i ${path.module}/ansible/inventory f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}'
+      ansible-galaxy install -f f5devcentral.f5ansible
+      ansible-playbook -i ${path.module}/ansible/inventory -vvv f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
       EOF
   }
 }
