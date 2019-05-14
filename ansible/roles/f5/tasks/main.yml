@@ -1,36 +1,4 @@
 ---
-<<<<<<< HEAD
-- name: Set the hostname of the BIG-IP
-  bigip_hostname:
-    hostname: ansible.did.it.work.com
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-
-- name: Update password
-  bigip_user:
-    state: present
-    username_credential: admin
-    password_credential: admin
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
-- name: 'f5 | set ntp'
-  bigip_device_ntp:
-    ntp_servers: "{{ ntp_servers }}"
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
-
-- name: Create a base SMTP server configuration
-  bigip_smtp:
-    name: smtp_reform
-    smtp_server: reformMgmtMTA.reform.hmcts.net
-    local_host_name: dmz.reform.hmcts.net
-    from_address: dmz@reform.hmcts.net
-    state: present
-    provider: "{{ provider }}"
-  delegate_to: localhost
-=======
 - name: Wait for BIG-IP to be ready to take configuration
   bigip_wait:
     provider:  "{{ provider }}"
@@ -61,4 +29,3 @@
 # Example Node / Pool and Virtual Server Server
 #- name: Installing AS3 iApp
 # include_tasks: as3.yml
->>>>>>> 1c539f76c9c9e4efecc4e0e97703aacfaa4366cc
