@@ -80,7 +80,7 @@ resource "null_resource" "ansible-runs" {
       sleep 30;
       printenv
       az --version
-      az login --service-principal -u $(AZURE_CLIENT_ID) -p $(AZURE_SECRET) --tenant $(AZURE_TENANT)
+      az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az keyvault certificate download -f "${path.module}/ansible/files/star-platform-hmcts-net.pfx" --vault-name dmz-sandbox-vault -n star-platform-hmcts-net
       ls -alR ${path.module}/ansible
       openssl pkcs12 -in "${path.module}/ansible/files/star-platform-hmcts-net.pfx" -nocerts -out key.pem
