@@ -79,8 +79,10 @@ resource "null_resource" "ansible-runs" {
       cd rdo-terraform-module-azure-f5/ansible;
       sleep 30;
       az --version
-      az keyvault certificate download -f "files/star-platform-hmcts-net.pfx" --vault-name dmz-sandbox-vault -n star-platform-hmcts-net
+      az keyvault certificate download -f "${path.module}/ansible/files/star-platform-hmcts-net.pfx" --vault-name dmz-sandbox-vault -n star-platform-hmcts-net
       ls -alR ${path.module}/ansible
+      openssl pkcs12 -in "${path.module}/ansible/files/star-platform-hmcts-net.pfx" -nocerts -out key.pem
+      openssl pkcs12 -in "${path.module}/ansible/files/star-platform-hmcts-net.pfx" -clcerts -nokeys -out cert.pem
       ansible-galaxy install -f f5devcentral.f5ansible
       ansible-playbook -i ${path.module}/ansible/inventory -vvv f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
       EOF
