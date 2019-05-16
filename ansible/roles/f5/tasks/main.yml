@@ -25,7 +25,7 @@
   bigip_ssl_key:
     name: star-platform-hmcts-net-key
     state: present
-    content: "{{ lookup('file', '/tmp/cert.key') }}"
+    key_source_path: /tmp/cert.key
     provider:  "{{ provider }}"
   delegate_to: localhost
 
