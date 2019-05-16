@@ -21,20 +21,13 @@
   shell: pwd
   delegate_to: localhost
 
-- name: Use a file lookup to import PEM Certificate
+- name: Import PEM Certificate from local disk
   bigip_ssl_certificate:
-    name: star-platform-hmcts-net-cert
-    state: present
-    content: "{{ lookup('file', '$(System.DefaultWorkingDirectory)/cert.pem') }}"
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-
-- name: Use a file lookup to import key
-  bigip_ssl_key:
-    name: star-platform-hmcts-net-key
-    state: present
-    content: "{{ lookup('file', '$(System.DefaultWorkingDirectory)/key.pem') }}"
-    provider:  "{{ provider }}"
+      name: "star-platform-hmcts-net"
+      state: "present"
+      cert_src: "$(System.DefaultWorkingDirectory)/cert.pem"
+      key_src: "$(System.DefaultWorkingDirectory)/key.pem"
+      provider:  "{{ provider }}"
   delegate_to: localhost
 
 - name: System Setup
