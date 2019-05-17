@@ -21,7 +21,7 @@
   bigip_ssl_key:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '/home/vsts/.ansible/cert.key') }}"
+    content: "{{ lookup('file', '/home/vsts/work/1/s/cert.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
@@ -29,7 +29,7 @@
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '/home/vsts/.ansible/cert.pem') }}"
+    content: "{{ lookup('file', '/home/vsts/work/1/s/cert.crt') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
