@@ -49,14 +49,14 @@
 # include_tasks: as3.yml
 
 
-- name: Setting Device SSL Setup
-  bigip_command:
-    commands:
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/
-      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
-      - tmsh save /sys config partitions all
-      - tmsh restart /sys service httpd
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-  run_once: True
+#- name: Setting Device SSL Setup
+#  bigip_command:
+#    commands:
+#      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/
+#      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/
+#      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
+#      - tmsh save /sys config partitions all
+#      - tmsh restart /sys service httpd
+#    provider:  "{{ provider }}"
+#  delegate_to: localhost
+#  run_once: True
