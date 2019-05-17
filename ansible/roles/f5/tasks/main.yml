@@ -17,26 +17,21 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: find out working directory
-  shell: pwd
-  delegate_to: localhost
-
-- name: Use a file lookup to import key
+- name: Import Cert Key
   bigip_ssl_key:
-    name: star-platform-hmcts-net-key
+    name: star-platform-hmcts-net
     state: present
-    key_source_path: /tmp/cert.key
+    content: "{{ lookup('file', 'files/cert.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-#- name: Use a file lookup to import PEM Certificate
-#  bigip_ssl_certificate:
-#    name: star-platform-hmcts-net-cert
-#    state: present
-#    content: "{{ lookup('file', '/tmp/cert.pem') }}"
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
-
+- name: Import Cert
+  bigip_ssl_certificate:
+    name: star-platform-hmcts-net
+    state: present
+    content: "{{ lookup('file', 'files/cert.pem') }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
 
 - name: System Setup

@@ -16,9 +16,10 @@ dns_search:
   - localdomain
   - lab.local
 
-hostname: "Ive.finally.got.this.working.com"
+hostname: "f5.platform.hmcts.net"
 
-bannertxt: "------- Please Go Away -------"
+bannertxt: "WARNING: This is a private system, only use this system if you have specific authority to do so.\n
+Otherwise you are liable to prosecution under the Computer Misuse Act 1990. Authorized uses only."
 
 # SMTP Settings
 smtp_server: reformMgmtMTA.reform.hmcts.net
