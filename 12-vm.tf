@@ -80,8 +80,8 @@ resource "null_resource" "ansible-runs" {
       sleep 30;
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az keyvault certificate download -f "${path.module}/ansible/files/star-platform-hmcts-net.pfx" --vault-name dmz-sandbox-vault -n star-platform-hmcts-net
-      openssl pkcs12 -in '${path.module}/ansible/files/star-platform-hmcts-net.pfx' -out '/tmp/cert.key' -nocerts -nodes -password pass:Monday01!
-      openssl pkcs12 -in '${path.module}/ansible/files/star-platform-hmcts-net.pfx' -out '/tmp/cert.crt' -clcerts -nokeys -password pass:Monday01!
+      openssl pkcs12 -in '${path.module}/ansible/files/star-platform-hmcts-net.pfx' -out '${path.module}/ansible/files/cert.key' -nocerts -nodes -password pass:Monday01!
+      openssl pkcs12 -in '${path.module}/ansible/files/star-platform-hmcts-net.pfx' -out '${path.module}/ansible/files/cert.crt' -clcerts -nokeys -password pass:Monday01!
       ansible-galaxy install -f f5devcentral.f5ansible
       ansible-playbook -vvv -i ${path.module}/ansible/inventory -vvv f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
       EOF
