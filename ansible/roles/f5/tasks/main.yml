@@ -24,6 +24,7 @@
     content: "{{ lookup('file', '/home/vsts/work/1/s/cert.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
+  run_once: True
 
 - name: Import Cert
   bigip_ssl_certificate:
@@ -32,7 +33,7 @@
     content: "{{ lookup('file', '/home/vsts/work/1/s/cert.crt') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
-
+  run_once: True
 
 - name: System Setup
   include_tasks: system.yml
