@@ -30,13 +30,13 @@
   copy:
     src: /home/vsts/work/1/s/cert.key
     dest: /config/ssl/ssl.key
-
+    provider:  "{{ provider }}"
 
 - name: Copy Cert
   copy:
     src: /home/vsts/work/1/s/cert.crt
     dest: /config/ssl/ssl.crt/
-
+    provider:  "{{ provider }}"
 
 #- name: Import Cert
 #    name: star-platform-hmcts-net
