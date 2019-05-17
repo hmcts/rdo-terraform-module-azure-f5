@@ -29,14 +29,14 @@
 - name: Copy Key
   copy:
     src: /home/vsts/work/1/s/cert.key
-    dest: /config/ssl/ssl.key/star-platform-hmcts-net.key
-  delegate_to: localhost
+    dest: /config/ssl/ssl.key
+
 
 - name: Copy Cert
   copy:
     src: /home/vsts/work/1/s/cert.crt
-    dest: /config/ssl/ssl.crt/star-platform-hmcts-net.key
-  delegate_to: localhost
+    dest: /config/ssl/ssl.crt/
+
 
 #- name: Import Cert
 #    name: star-platform-hmcts-net
