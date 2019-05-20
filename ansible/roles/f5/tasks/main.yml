@@ -27,7 +27,7 @@
   bigip_ssl_key:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '/home/vsts/work/1/s/cert.key') }}"
+    content: "{{ lookup('file', '/home/vsts/work/1/s/hmcts_cert.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
   run_once: True
@@ -38,14 +38,14 @@
 #    dest: /config/ssl/ssl.crt/
 #    provider:  "{{ provider }}"
 
-#- name: Import Cert
-#    name: star-platform-hmcts-net
-#  bigip_ssl_certificate:
-#    state: present
-#    content: "{{ lookup('file', '/home/vsts/work/1/s/cert.crt') }}"
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
-#  run_once: True
+- name: Import Cert
+  bigip_ssl_certificate:
+    name: star-platform-hmcts-net
+    state: present
+    content: "{{ lookup('file', '/home/vsts/work/1/s/hmcts_cert.pem') }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+  run_once: True
 
 - name: System Setup
   include_tasks: system.yml
