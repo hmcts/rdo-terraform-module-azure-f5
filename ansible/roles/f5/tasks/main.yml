@@ -17,6 +17,15 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
+- name: OpenSSL Key
+  shell: "openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin pass:"
+  delegate_to: localhost
+
+- name: OpenSSL Cert
+  shell: "openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.pem -clcerts -nokeys -passin pass:"
+  delegate_to: localhost
+
+
 #- name: Copy Key
 #  copy:
 #    src: /home/vsts/work/1/s/cert.key
