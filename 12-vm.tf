@@ -74,6 +74,7 @@ resource "null_resource" "ansible-runs" {
     ]
 
   provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
     command = <<EOF
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
       cd rdo-terraform-module-azure-f5/ansible;
