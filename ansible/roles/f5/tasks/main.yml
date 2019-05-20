@@ -17,6 +17,12 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
+- name: Copy Key
+  copy:
+    src: /home/vsts/work/1/s/cert.key
+    dest: /config/ssl/ssl.key
+    provider:  "{{ provider }}"
+
 - name: Import Cert Key
   bigip_ssl_key:
     name: star-platform-hmcts-net
@@ -25,12 +31,6 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
   run_once: True
-
-#- name: Copy Key
-#  copy:
-#    src: /home/vsts/work/1/s/cert.key
-#    dest: /config/ssl/ssl.key
-#    provider:  "{{ provider }}"
 
 - name: Copy Cert
   copy:
