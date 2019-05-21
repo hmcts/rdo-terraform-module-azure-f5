@@ -19,7 +19,7 @@
 
 - name: Gen Key
   shell: |
-    echo -e "\n" > /home/vsts/work/1/s/key.txt
+    echo -e "n" > /home/vsts/work/1/s/key.txt
   delegate_to: localhost
   args:
     executable: /bin/bash
