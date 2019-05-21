@@ -18,11 +18,16 @@
   delegate_to: localhost
 
 - name: OpenSSL Key
-  shell: "openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin pass:"
+  shell: >
+    echo -e "\n" > key.txt
+    openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin file:key.txt
   delegate_to: localhost
+  args:
+    executable: /bin/bash
 
 - name: OpenSSL Cert
-  shell: "openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.pem -clcerts -nokeys -passin pass:"
+  shell: >
+    openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.pem -clcerts -nokeys -passin file:key.txt
   delegate_to: localhost
 
 
@@ -32,29 +37,13 @@
 #    dest: /config/ssl/ssl.key
 #    provider:  "{{ provider }}"
 
-- name: Import Cert Key
-  bigip_ssl_key:
-    name: star-platform-hmcts-net
-    state: present
-    content: "{{ lookup('file', '/home/vsts/work/1/s/hmcts_cert.key') }}"
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-  run_once: True
+
 
 #- name: Copy Cert
 #  copy:
 #    src: /home/vsts/work/1/s/cert.crt
 #    dest: /config/ssl/ssl.crt/
 #    provider:  "{{ provider }}"
-
-- name: Import Cert
-  bigip_ssl_certificate:
-    name: star-platform-hmcts-net
-    state: present
-    content: "{{ lookup('file', '/home/vsts/work/1/s/hmcts_cert.pem') }}"
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-  run_once: True
 
 - name: System Setup
   include_tasks: system.yml
@@ -70,14 +59,14 @@
 # include_tasks: as3.yml
 
 
-- name: Setting Device SSL Setup
-  bigip_command:
-    commands:
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/
-      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
-      - tmsh save /sys config partitions all
-      - tmsh restart /sys service httpd
-    provider:  "{{ provider }}"
-  delegate_to: localhost
-  run_once: True
+#- name: Setting Device SSL Setup
+#  bigip_command:
+#    commands:
+#      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/
+#      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/
+#      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
+#      - tmsh save /sys config partitions all
+#      - tmsh restart /sys service httpd
+#    provider:  "{{ provider }}"
+#  delegate_to: localhost
+#  run_once: True
