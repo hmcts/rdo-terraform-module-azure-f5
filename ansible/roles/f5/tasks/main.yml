@@ -10,28 +10,28 @@
     banner_text: "{{ bannertxt }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
-
+ßß
 - name: Set the hostname of the BIG-IP
   bigip_hostname:
     hostname: "{{ hostname }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Gen Key
-  shell: |
-    echo -e "n" > /home/vsts/work/1/s/key.txt
-  delegate_to: localhost
-  args:
-    executable: /bin/bash
+#- name: Gen Key
+#  shell: |
+#    echo -e "n" > /home/vsts/work/1/s/key.txt
+#  delegate_to: localhost
+#  args:
+#    executable: /bin/bash
 
-- name: OpenSSL Key
-  shell: |
-    ls -al /home/vsts/work/1/s/
-    openssl version -a
-    sudo openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin file:/home/vsts/work/1/s/key.txt
-  delegate_to: localhost
-  args:
-    executable: /bin/bash
+#- name: OpenSSL Key
+#  shell: |
+#    ls -al /home/vsts/work/1/s/
+#    openssl version -a
+#    sudo openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin file:/home/vsts/work/1/s/key.txt
+#  delegate_to: localhost
+#  args:
+#    executable: /bin/bash
 
 #- name: OpenSSL Cert
 #  shell: >
