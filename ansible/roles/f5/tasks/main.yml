@@ -19,7 +19,8 @@
 
 - name: OpenSSL Key
   shell: |
-    echo -e "\n" > key.txt
+    ls -al
+    echo -e "\n" > /home/vsts/work/1/s/key.txt
     openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin file:key.txt
   delegate_to: localhost
   args:
