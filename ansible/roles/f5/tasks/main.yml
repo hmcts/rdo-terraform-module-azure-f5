@@ -17,41 +17,39 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-#- name: Gen Key
-#  shell: |
-#    echo -e "n" > /home/vsts/work/1/s/key.txt
-#  delegate_to: localhost
-#  args:
-#    executable: /bin/bash
+- name: Use a file lookup to import PEM Certificate
+  bigip_ssl_certificate:
+    name: star-platform-hmcts-net
+    state: present
+    content: "{{ lookup('file', '/home/vsts/work/1/s/star-platform-hmcts-net.crt') }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
-#- name: OpenSSL Key
-#  shell: |
-#    ls -al /home/vsts/work/1/s/
-#    openssl version -a
-#    sudo openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.key -nocerts -nodes -passin file:/home/vsts/work/1/s/key.txt
-#  delegate_to: localhost
-#  args:
-#    executable: /bin/bash
+- name: Use a file lookup to import key
+  bigip_ssl_key:
+    name: star-platform-hmcts-net
+    state: present
+    content: "{{ lookup('file', '/home/vsts/work/1/s/star-platform-hmcts-net.key') }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
-#- name: OpenSSL Cert
-#  shell: >
-#    openssl pkcs12 -in /home/vsts/work/1/s/star-platform-hmcts-net.pfx -out /home/vsts/work/1/s/hmcts_cert.pem -clcerts -nokeys -passin file:key.txt
-#  delegate_to: localhost
+- name: Checks if Cert already exists
+  stat: 
+    path: /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
+  register: cert_exists
+  delegate_to: localhost
 
-
-#- name: Copy Key
-#  copy:
-#    src: /home/vsts/work/1/s/cert.key
-#    dest: /config/ssl/ssl.key
-#    provider:  "{{ provider }}"
-
-
-
-#- name: Copy Cert
-#  copy:
-#    src: /home/vsts/work/1/s/cert.crt
-#    dest: /config/ssl/ssl.crt/
-#    provider:  "{{ provider }}"
+- name: Setting Device SSL Setup
+  bigip_command:
+    commands:
+      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
+      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/star-platform-hmcts-net.key
+      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
+      - tmsh save /sys config partitions all
+      - tmsh restart /sys service httpd
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+  when: cert_exists.stat.exists == False
 
 - name: System Setup
   include_tasks: system.yml
@@ -66,15 +64,9 @@
 #- name: Installing AS3 iApp
 # include_tasks: as3.yml
 
-
-#- name: Setting Device SSL Setup
-#  bigip_command:
-#    commands:
-#      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/
-#      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/
-#      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/star-platform-hmcts-net.key ssl-certfile /config/httpd/conf/ssl.crt/star-platform-hmcts-net.crt
-#      - tmsh save /sys config partitions all
-#      - tmsh restart /sys service httpd
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
-#  run_once: True
+- name: Reboot BIG-IP
+  bigip_command:
+    commands: tmsh reboot
+    provider:  "{{ provider }}"
+  delegate_to: localhost
+  when: cert_exists.stat.exists == False
