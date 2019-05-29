@@ -1,5 +1,4 @@
 ---
-tasks:
 - name: Wait for BIG-IP to be ready to take configuration
   bigip_wait:
     provider:  "{{ provider }}"
@@ -61,9 +60,8 @@ tasks:
 #- name: Installing AS3 iApp
 # include_tasks: as3.yml
 
-handlers:
-  - name: Reboot-BIG-IP
-    bigip_command:
-      commands: tmsh reboot
-      provider:  "{{ provider }}"
-    delegate_to: localhost
+- name: Reboot-BIG-IP
+  bigip_command:
+    commands: tmsh reboot
+    provider:  "{{ provider }}"
+  delegate_to: localhost
