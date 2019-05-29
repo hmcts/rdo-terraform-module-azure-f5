@@ -74,15 +74,12 @@ resource "null_resource" "ansible-runs" {
     ]
 
   provisioner "local-exec" {
-    interpreter = ["/bin/bash", "-c"]
     command = <<EOF
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
       cd rdo-terraform-module-azure-f5/ansible;
       sleep 30;
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az storage blob download-batch -d . --pattern star*.* -s certs --account-name dmzsandbox01
-      pwd
-      ls -al
       ansible-galaxy install -f f5devcentral.f5ansible
       ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"'
       EOF
