@@ -59,8 +59,8 @@
 #- name: Installing AS3 iApp
 # include_tasks: as3.yml
 
-- name: Reboot-BIG-IP
-  bigip_command:
-    commands: tmsh reboot
-    provider:  "{{ provider }}"
-  delegate_to: localhost
+#- name: Reboot-BIG-IP
+#  bigip_command:
+#    commands: tmsh reboot
+#    provider:  "{{ provider }}"
+#  delegate_to: localhost
