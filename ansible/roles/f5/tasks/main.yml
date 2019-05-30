@@ -45,7 +45,6 @@
       - sleep 5
     provider:  "{{ provider }}"
   delegate_to: localhost
-  notify: Reboot-BIG-IP
 
 - name: System Setup
   include_tasks: system.yml
