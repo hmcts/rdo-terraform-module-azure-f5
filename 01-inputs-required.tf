@@ -14,6 +14,11 @@ variable "subnet_vip_id" {
   description = "ID of the Loadbalancer subnet"
 }
 
+variable "lb_subnet_vip" {
+  description = "Address Prefix for VIP IP Range"
+}
+
+
 variable "vm_username" {
   description = "Username to use for the appliance"
 }

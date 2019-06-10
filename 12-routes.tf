@@ -12,8 +12,9 @@ resource "azurerm_route_table" "route_main" {
 
   route {
     name                                    = "inbound_trust"
-    address_prefix                          = "10.99.72.0/24"
+    address_prefix                          = "${var.lb_subnet_vip}"
     next_hop_type                           = "VirtualAppliance"
     next_hop_in_ip_address                  = "${var.selfip_private_ip}"
   }
+
 }
