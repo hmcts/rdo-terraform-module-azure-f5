@@ -54,6 +54,9 @@
 - name: Installing AS3 iApp
   include_tasks: as3.yml
 
+- name: Add System Users
+  include_tasks: users.yml
+
 # Example Node / Pool and Virtual Server Server
 #- name: Installing AS3 iApp
 # include_tasks: as3.yml
