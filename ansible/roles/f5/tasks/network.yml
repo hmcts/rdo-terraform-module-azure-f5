@@ -15,3 +15,13 @@
     vlan: "{{ vlan_name }}"
     provider: "{{ provider }}"
   delegate_to: localhost
+
+- name: Create static route with gateway address
+  bigip_static_route:
+    destination: 10.99.73.0
+    netmask: 255.255.255.0
+    vlan: dmz-transit
+    mtu: 1500
+    name: inbound_proxy
+    provider: "{{ provider }}"
+  delegate_to: localhost
