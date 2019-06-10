@@ -7,7 +7,7 @@ resource "azurerm_route_table" "route_main" {
   route {
     name           = "internet_out"
     address_prefix = "0.0.0.0/0"
-    next_hop_type  = "Internets"
+    next_hop_type  = "Internet"
   }
 
 
