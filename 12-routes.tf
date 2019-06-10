@@ -5,10 +5,15 @@ resource "azurerm_route_table" "route_main" {
   disable_bgp_route_propagation             = false
 
   route {
-    name           = "internet_out"
-    address_prefix = "0.0.0.0/0"
-    next_hop_type  = "Internet"
+    name                                    = "internet_out"
+    address_prefix                          = "0.0.0.0/0"
+    next_hop_type                           = "Internet"
   }
 
-
+  route {
+    name                                    = "inbound_trust"
+    address_prefix                          = "${var.subnet_vip_id}"
+    next_hop_type                           = "VirtualAppliance"
+    next_hop_in_ip_address                  = "${var.selfip_private_ip}"
+  }
 }

@@ -10,6 +10,10 @@ variable "subnet_mgmt_id" {
   description = "ID of the management subnet"
 }
 
+variable "subnet_vip_id" {
+  description = "ID of the Loadbalancer subnet"
+}
+
 variable "vm_username" {
   description = "Username to use for the appliance"
 }
