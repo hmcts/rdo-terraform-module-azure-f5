@@ -16,7 +16,7 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Create static route with gateway address
+- name: Create static route to proxy subnet
   bigip_static_route:
     destination: 10.99.73.0
     netmask: 255.255.255.0
@@ -26,7 +26,7 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Create static route with gateway address
+- name: Create static default route
   bigip_static_route:
     destination: 0.0.0.0
     netmask: 0.0.0.0
