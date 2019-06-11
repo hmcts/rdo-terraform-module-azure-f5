@@ -38,3 +38,12 @@ variable "selfip_private_ip" {
 variable "selfip_subnet" {
   description                         = "Subnet for the F5 IP Address"
 }
+
+variable "as3_username" {
+  description                         = "Name of F5 AS3 user"  
+}
+
+variable "as3_password" {
+  description                         = "F5 AS3 user password"  
+}
+
