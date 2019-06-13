@@ -16,21 +16,13 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Create static route to proxy subnet
-  bigip_static_route:
-    destination: 10.99.73.0
-    netmask: 255.255.255.0
-    vlan: dmz-transit
-    mtu: 1500
-    name: inbound_proxy
-    provider: "{{ provider }}"
-  delegate_to: localhost
 
 - name: Create static default route
   bigip_static_route:
     destination: 0.0.0.0
     netmask: 0.0.0.0
-    gateway_address: 10.99.72.1 # This needs fixing to be dynamic as part of pipeline
+    gateway_address: "{{ self_ip -3}}"
+    #gateway_address: 10.99.72.1 # This needs fixing to be dynamic as part of pipeline
     mtu: 1500
     name: internet_out
     provider: "{{ provider }}"
