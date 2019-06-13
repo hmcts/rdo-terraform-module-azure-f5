@@ -30,7 +30,7 @@
   bigip_static_route:
     destination: 0.0.0.0
     netmask: 0.0.0.0
-    vlan: dmz-transit
+    gateway_address: 10.99.72.1 # This needs fixing to be dynamic as part of pipeline
     mtu: 1500
     name: internet_out
     provider: "{{ provider }}"
