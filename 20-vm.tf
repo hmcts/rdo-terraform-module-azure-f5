@@ -1,11 +1,13 @@
 resource "azurerm_virtual_machine" "vm" {
-  name                                  = "${var.vm_name}"
+  name                                  = "${var.vm_name}-${var.environment}"
   location                              = "${data.azurerm_resource_group.rg.location}"
   resource_group_name                   = "${data.azurerm_resource_group.rg.name}"
   vm_size                               = "${var.vm_size}"
   network_interface_ids                 = ["${azurerm_network_interface.nic_mgmt.id}", "${var.nic_vip_id}"]
   primary_network_interface_id          = "${azurerm_network_interface.nic_mgmt.id}"
   delete_os_disk_on_termination         = true
+  tags                                  = "${var.tags}"
+
   storage_image_reference {
     publisher                           = "f5-networks"
     offer                               = "f5-big-ip-best"
@@ -24,7 +26,7 @@ resource "azurerm_virtual_machine" "vm" {
     managed_disk_type                   = "Standard_LRS"
   }
   os_profile {
-    computer_name                       = "${var.vm_osprofile_computer_name}"
+    computer_name                       = "${var.vm_name}"
     admin_username                      = "${var.vm_username}"
     admin_password                      = "${var.vm_password}"
   }
