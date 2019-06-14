@@ -18,6 +18,6 @@ variable "tags" {
   type                                    = "map"
   default                                 = {
       Team                                = "Reform-DevOps"
-      Environment                         = "${var.environment}"
+      Environment                         = "$${var.environment}"
   }
 }
