@@ -13,12 +13,6 @@ variable "vm_sku" {
   default                                 = "f5-bigip-virtual-edition-25m-best-hourly"
 }
 
-variable "vm_disk_name" {
-  description                             = "VM disk name"
-  default                                 = "disk-mgmt-vpn-os"
-}
-
-
 variable "tags" {
   description                             = "The tags to associate with your resources."
   type                                    = "map"
