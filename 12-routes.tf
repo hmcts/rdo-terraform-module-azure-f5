@@ -10,12 +10,12 @@ resource "azurerm_route_table" "route_main" {
     name                                    = "to_hub_fw"
     address_prefix                          = "0.0.0.0/0"
     next_hop_type                           = "VirtualAppliance"
-    next_hop_in_ip_address                  = "10.99.132.5"
+    next_hop_in_ip_address                  = "10.99.132.5" # Needs to be fixed to be dynamic
   }
 
-#resource "azurerm_subnet_route_table_association" "route_association" {
-#  subnet_id      = "${var.subnet_mgmt_id}"
-#  route_table_id = "${azurerm_route_table.route_main.id}"
-#}
+resource "azurerm_subnet_route_table_association" "route_association" {
+  subnet_id      = "${var.subnet_mgmt_id}"
+  route_table_id = "${azurerm_route_table.route_main.id}"
+}
 
 }
