@@ -36,8 +36,8 @@
 - name: Setting Device SSL Setup
   bigip_command:
     commands:
-      - bash -c 'cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt'
-      - bash -c 'cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key'
+      - bash -c '/bin/cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt'
+      - bash -c '/bin/cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key'
       - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/server.key ssl-certfile /config/httpd/conf/ssl.crt/server.crt
       - tmsh save /sys config partitions all
       #- tmsh restart /sys service httpd
