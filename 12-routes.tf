@@ -14,7 +14,7 @@ resource "azurerm_route_table" "route_main" {
   }
 
 resource "azurerm_subnet_route_table_association" "route_association" {
-  subnet_id      = "${var.subnet_mgmt_id}"
+  subnet_id      = "${var.selfip_subnet}"
   route_table_id = "${azurerm_route_table.route_main.id}"
 }
 
