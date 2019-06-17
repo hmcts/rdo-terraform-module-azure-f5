@@ -13,9 +13,9 @@ resource "azurerm_route_table" "route_main" {
     next_hop_in_ip_address                  = "10.99.132.5"
   }
 
-#resource "azurerm_subnet_route_table_association" "route_main" {
-#  subnet_id      = "${var.subnet_mgmt_id}"
-#  route_table_id = "${azurerm_route_table.route_main.id}"
-#}
+resource "azurerm_subnet_route_table_association" "route_association" {
+  subnet_id      = "${var.subnet_mgmt_id}"
+  route_table_id = "${azurerm_route_table.route_main.id}"
+}
 
 }
