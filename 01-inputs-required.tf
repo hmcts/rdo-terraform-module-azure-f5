@@ -46,3 +46,6 @@ variable "environment" {
   description                             = "Environment like sbox / nonprod and prod"
 }
 
+variable "loadbalancer_subnet_management" {
+  description                             = ""
+}
