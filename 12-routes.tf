@@ -12,10 +12,10 @@ resource "azurerm_route_table" "route_main" {
     next_hop_type                           = "VirtualAppliance"
     next_hop_in_ip_address                  = "10.99.132.5" # Needs to be fixed to be dynamic
   }
+}
 
 resource "azurerm_subnet_route_table_association" "route_association" {
   subnet_id      = "${var.selfip_subnet}"
   route_table_id = "${azurerm_route_table.route_main.id}"
 }
 
-}
