@@ -14,8 +14,8 @@ resource "azurerm_route_table" "route_main" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "route_association" {
-  subnet_id                                 = "${var.loadbalancer_subnet_management}"
-  route_table_id                            = "${azurerm_route_table.route_main.id}"
-}
+#resource "azurerm_subnet_route_table_association" "route_association" {
+#  subnet_id                                 = "${var.loadbalancer_subnet_management}"
+#  route_table_id                            = "${azurerm_route_table.route_main.id}"
+#}
 
