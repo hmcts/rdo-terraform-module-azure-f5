@@ -50,3 +50,6 @@ variable "loadbalancer_subnet_management" {
   description                             = ""
 }
 
+locals {
+  default_gateway                         = "${cidrhost(azurerm_subnet.subnet.1.address_prefix,1)}"
+}
