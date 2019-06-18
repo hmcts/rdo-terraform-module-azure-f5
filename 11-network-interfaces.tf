@@ -1,3 +1,14 @@
+data "azurerm_virtual_network" "vnet" {
+  name                                      = "${var.vm_name}-${var.environment}"
+  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+}
+
+data "azurerm_subnet" "subnet" {
+  name                                      = "dmz-loadbalancer"
+  virtual_network_name                      = "${data.azurerm_virtual_network.vnet.name}"
+  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+}
+
 resource "azurerm_network_interface" "nic_mgmt" {
   name                                      = "${var.vm_name}-${var.environment}-nic01"
   location                                  = "${data.azurerm_resource_group.rg.location}"
