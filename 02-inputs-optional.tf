@@ -5,7 +5,7 @@ variable "availability_set_id" {
 
 variable "vm_size" {
   description                             = "Size of the VM in azure"
-  default                                 = "Standard_DS1_v2"
+  default                                 = "Standard_D2s_v3"
 }
 
 variable "vm_sku" {
