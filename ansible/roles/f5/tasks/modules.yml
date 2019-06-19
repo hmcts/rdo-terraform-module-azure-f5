@@ -10,6 +10,6 @@
 - name: Ensure repo is up-to-date
   git:
     repo: git@github.com:f5devcentral/f5-asm-policy-template-v13.git
-    dest: repos/asm
+    dest: /home/vsts/work/1/s/rdo-terraform-module-azure-f5/ansible
 
 # - owasp_ready_template/v1/ASMv131/owasp-auto-tune-v131.xml
