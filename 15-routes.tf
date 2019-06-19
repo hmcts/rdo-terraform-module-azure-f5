@@ -10,7 +10,7 @@ resource "azurerm_route_table" "route_main" {
     name                                    = "to_hub_fw"
     address_prefix                          = "0.0.0.0/0"
     next_hop_type                           = "VirtualAppliance"
-    next_hop_in_ip_address                  = "10.99.132.1" #"${local.palo_ip}"    #"10.99.132.5" # Needs to be fixed to be dynamic
+    next_hop_in_ip_address                  = "${local.palo_ip}"    #"10.99.132.5" # Needs to be fixed to be dynamic
   }
 }
 
