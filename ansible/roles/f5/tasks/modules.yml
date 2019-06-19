@@ -2,6 +2,6 @@
 - name: Provision ASM Module
   bigip_provision:
     module: asm
-    level: minimum
+    level: nominal
     provider: "{{ provider }}"
   delegate_to: localhost
