@@ -48,6 +48,9 @@
 - name: System Setup
   include_tasks: system.yml
 
+- name: Installing Modules
+  include_tasks: modules.yml
+
 - name: Network Setup
   include_tasks: network.yml
 
