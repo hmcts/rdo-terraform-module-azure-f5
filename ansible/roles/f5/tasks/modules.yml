@@ -8,9 +8,7 @@
 
 - name: Import ASM policy
   bigip_asm_policy_import:
-    name: ASMv131_policy
-    file: ../../f5-asm-policy-template-v13/owasp_ready_template/v1/ASMv131/owasp-auto-tune-v131.xml
+    name: asmv131_policy
+    source: f5-asm-policy-template-v13/owasp_ready_template/v1/ASMv131/owasp-auto-tune-v131.xml
     provider: "{{ provider }}"
   delegate_to: localhost
-# - owasp_ready_template/v1/ASMv131/owasp-auto-tune-v131.xml
-# ./f5-asm-policy-template-v13/owasp_ready_template/v1/ASMv131
