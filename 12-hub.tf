@@ -9,5 +9,5 @@ data "azurerm_network_interface" "palo_ip" {
 }
 
 locals {
-  palo_ip                         = "${data.azurerm_network_interface.palo_ip.private_ip_address}"
+  palo_ip                                   = "${data.azurerm_network_interface.palo_ip.private_ip_address}"
 }
