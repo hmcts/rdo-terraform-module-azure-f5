@@ -33,16 +33,17 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-#- name: Setting Device SSL Setup
-#  bigip_command:
-#    commands:
-#      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt
-#      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key
-#      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/server.key ssl-certfile /config/httpd/conf/ssl.crt/server.crt
-#      - tmsh save /sys config partitions all
-#      #- tmsh restart /sys service httpd
-#      #- sleep 5    provider:  "{{ provider }}"
-#  delegate_to: localhost
+- name: Setting Device SSL Setup
+  bigip_command:
+    commands:
+      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt
+      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key
+      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/server.key ssl-certfile /config/httpd/conf/ssl.crt/server.crt
+      - tmsh save /sys config partitions all
+      #- tmsh restart /sys service httpd
+      #- sleep 5    
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
 - name: System Setup
   include_tasks: system.yml
