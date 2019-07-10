@@ -46,7 +46,7 @@ data "template_file" "inventory" {
         "azurerm_virtual_machine.vm"
     ]
 
-    vars {
+    vars = {
         admin_username                  = "${var.vm_username}"
         admin_password                  = "${var.vm_password}"
         public_ip                       = "${azurerm_public_ip.pip_mgmt.ip_address}"
@@ -55,7 +55,7 @@ data "template_file" "inventory" {
 
 resource "null_resource" "update_inventory" {
 
-    triggers {
+    triggers = {
         template                        = "${data.template_file.inventory.rendered}"
     }
 
