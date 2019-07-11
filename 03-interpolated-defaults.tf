@@ -22,6 +22,6 @@ data "azurerm_network_interface" "palo_ip" {
   resource_group_name                       = "${data.azurerm_resource_group.hub.name}"
 }
 
-locals {
-  palo_ip                                   = "${data.azurerm_network_interface.palo_ip.private_ip_address}"
-}
+#locals {
+#  palo_ip                                   = "${data.azurerm_network_interface.palo_ip.private_ip_address}"
+#}
