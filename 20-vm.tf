@@ -79,7 +79,9 @@ resource "null_resource" "ansible-runs" {
     command = <<EOF
       git clone --progress --verbose https://github.com/hmcts/rdo-terraform-module-azure-f5.git
       pwd
-      ls -al .terraform
+      ls -al ${path.module}
+      ls -al ${path.module}/.terraform
+      ls -al ${path.module}/ansible
       #cd rdo-terraform-module-azure-f5/ansible;
       #git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       #sleep 30;
