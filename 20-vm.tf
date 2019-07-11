@@ -78,16 +78,15 @@ resource "null_resource" "ansible-runs" {
   provisioner "local-exec" {
     command = <<EOF
       git clone --progress --verbose https://github.com/hmcts/rdo-terraform-module-azure-f5.git
-      pwd
-      ls -al ${path.module}
-      ls -al ${path.module}/.terraform
+      echo "ls ansible dir"
       ls -al ${path.module}/ansible
-      cd /home/vsts/work/1/s/ansible
+      echo "find inventory"
+      find . -name inventory
+      echo "find f5.yml"
+      find . -name f5.yml
       #git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       #sleep 30;
       #ls -alR ${path.module}/.terraform
-      cat inventory
-      cat f5.yml
       #az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       #az storage blob download-batch -d . --pattern star*.* -s certs --account-name dmzsandbox01
       #ansible-galaxy install -f f5devcentral.f5ansible
