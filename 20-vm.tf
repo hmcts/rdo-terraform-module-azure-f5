@@ -85,7 +85,7 @@ resource "null_resource" "ansible-runs" {
       echo "find f5.yml"
       find . -name f5.yml
       echo "cat inventory"
-      ./.terraform/modules/f5-01/ansible/inventory
+      cat ./.terraform/modules/f5-01/ansible/inventory
       #git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       #sleep 30;
       #ls -alR ${path.module}/.terraform
