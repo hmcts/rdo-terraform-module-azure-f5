@@ -82,11 +82,11 @@ resource "null_resource" "ansible-runs" {
       ls -al ${path.module}
       ls -al ${path.module}/.terraform
       ls -al ${path.module}/ansible
-      cd rdo-terraform-module-azure-f5/ansible;
+      cd ${path.module}/ansible
       #git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       #sleep 30;
       #ls -alR ${path.module}/.terraform
-      #cat ${path.module}/ansible/inventory;
+      cat ${path.module}/ansible/inventory
       #cat ${path.module}/ansible/f5.yml;
       #az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       #az storage blob download-batch -d . --pattern star*.* -s certs --account-name dmzsandbox01
