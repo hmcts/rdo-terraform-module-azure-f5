@@ -77,9 +77,8 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      pwd;
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-      ls -alR;
+      ls -al ${path.module};
       cd rdo-terraform-module-azure-f5/ansible;
       git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       sleep 30;
