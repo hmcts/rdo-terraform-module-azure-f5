@@ -86,8 +86,8 @@ resource "null_resource" "ansible-runs" {
       #git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
       #sleep 30;
       #ls -alR ${path.module}/.terraform
-      cat /home/vsts/work/1/s/ansible/inventory
-      cat /home/vsts/work/1/s/ansible/f5.yml
+      cat inventory
+      cat f5.yml
       #az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       #az storage blob download-batch -d . --pattern star*.* -s certs --account-name dmzsandbox01
       #ansible-galaxy install -f f5devcentral.f5ansible
