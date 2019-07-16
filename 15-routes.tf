@@ -12,7 +12,7 @@
  #   next_hop_type                           = "VirtualAppliance"
  #   next_hop_in_ip_address                  = "${local.palo_ip}"
  # }
-}
+#}
 
 #resource "azurerm_subnet_route_table_association" "route_association" {
 #  subnet_id                                 = "${var.loadbalancer_subnet_management}"
