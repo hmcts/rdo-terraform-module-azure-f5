@@ -1,12 +1,13 @@
 resource "azurerm_virtual_machine" "vm" {
-  name                                  = "${var.vm_name}-${var.environment}"
+  name                                  = "${var.vm_name}-${var.environment}${count.index}"
   location                              = "${data.azurerm_resource_group.rg.location}"
   resource_group_name                   = "${data.azurerm_resource_group.rg.name}"
   vm_size                               = "${var.vm_size}"
-  network_interface_ids                 = ["${azurerm_network_interface.nic_mgmt.id}", "${var.nic_vip_id}"]
-  primary_network_interface_id          = "${azurerm_network_interface.nic_mgmt.id}"
+  network_interface_ids                 = ["${element(azurerm_network_interface.nic_mgmt.*.id, count.index)}", "${element(azurerm_network_interface.nic_data.*.id, count.index)}"]
+  primary_network_interface_id          = "${element(azurerm_network_interface.nic_mgmt.*.id, count.index)}"
   delete_os_disk_on_termination         = true
   tags                                  = "${var.tags}"
+  count                                 = 2
 
   storage_image_reference {
     publisher                           = "f5-networks"
@@ -20,7 +21,7 @@ resource "azurerm_virtual_machine" "vm" {
     name                                = "${var.vm_sku}"
   }
   storage_os_disk {
-    name                                = "${var.vm_name}-${var.environment}-os"
+    name                                = "${var.vm_name}-${var.environment}-os-${count.index}"
     caching                             = "ReadWrite"
     create_option                       = "FromImage"
     managed_disk_type                   = "Standard_LRS"
@@ -49,7 +50,7 @@ data "template_file" "inventory" {
     vars = {
         admin_username                  = "${var.vm_username}"
         admin_password                  = "${var.vm_password}"
-        public_ip                       = "${azurerm_public_ip.pip_mgmt.ip_address}"
+        public_ip                       = "${data.azurerm_public_ip.pip_mgmt.ip_address}"
     }
 }
 
@@ -99,7 +100,7 @@ resource "null_resource" "ansible-runs" {
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible
       echo "F5 Playbook Run"
-      ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
+      ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server":  "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
       EOF
   }
 }
