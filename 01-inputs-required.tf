@@ -49,3 +49,11 @@ variable "environment" {
 variable "loadbalancer_subnet_management" {
   description                             = ""
 }
+
+variable "loadbalancer_vnet" {
+  description                             = ""
+}
+
+variable "loadbalancer_data_subnet" {
+  description                             = ""
+}

@@ -1,0 +1,40 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+       "class": "ADC",
+       "schemaVersion": "3.0.0",
+       "id": "fghijkl7890",
+       "label": "test_partition",
+       "remark": "HTTP two applications",
+       "test_daniel": {
+          "class": "Tenant",
+          "A1": {
+             "class": "Application",
+             "template": "generic",
+             "DMZ_VS2": {
+                "class": "Service_HTTP",
+                "virtualAddresses": [
+                   "10.99.72.8"
+                ],
+                "pool": "web_pool3",
+                "virtualPort": 21
+             },
+             "web_pool3": {
+                "class": "Pool",
+                "monitors": [
+                   "http"
+                ],
+                "members": [{
+                   "servicePort": 80,
+                   "serverAddresses": [
+                      "10.97.6.8",
+                      "10.97.6.9"
+                   ]
+                }]
+             }
+          }
+       }
+    }
+}
