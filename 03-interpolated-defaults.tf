@@ -14,7 +14,7 @@ data "azurerm_subnet" "subnet" {
 }
 
 data "azurerm_resource_group" "hub" {
-  name                                      = "hub-firewall"
+  name                                      = "hub"
 }
 
 data "azurerm_network_interface" "palo_ip" {
