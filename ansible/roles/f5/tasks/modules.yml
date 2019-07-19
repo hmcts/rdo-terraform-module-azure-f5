@@ -6,12 +6,19 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: Import ASM policy
-  bigip_asm_policy_import:
-    name: asmv131_policy
-    source: f5-asm-policy-template-v13/owasp_ready_template/owasp-auto-tune-v1.1.xml
-    provider: "{{ provider }}"
+- name: Provision ASM Module - BIG-IP 2
+  bigip_provision:
+    module: asm
+    level: nominal
+    provider: "{{ provider2 }}"
   delegate_to: localhost
+
+#- name: Import ASM policy
+ # bigip_asm_policy_import:
+ #   name: asm_policy_1_1
+ #   source: f5-asm-policy-template-v13/owasp_ready_template/owasp-auto-tune-v1.1.xml
+ #   provider: "{{ provider }}"
+ # delegate_to: localhost
 
 - name: Setting Device SSL Setup
   bigip_command:
@@ -19,4 +26,12 @@
       - tmsh modify /sys software update frequency daily
       - tmsh save /sys config partitions all
     provider:  "{{ provider }}"
+  delegate_to: localhost
+
+- name: Setting Device SSL Setup - BIG-IP 2
+  bigip_command:
+    commands:
+      - tmsh modify /sys software update frequency daily
+      - tmsh save /sys config partitions all
+    provider:  "{{ provider2 }}"
   delegate_to: localhost

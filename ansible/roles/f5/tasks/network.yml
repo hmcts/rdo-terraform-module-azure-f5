@@ -7,6 +7,13 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
+- name: Create VLAN transit - BIG-IP2
+  bigip_vlan:
+    name: "{{ vlan_name }}"
+    untagged_interface: 1.1
+    provider: "{{ provider2 }}"
+  delegate_to: localhost
+
 - name: Create Self IP
   bigip_selfip:
     name: "{{ vlan_name }}"
@@ -16,6 +23,14 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
+- name: Create Self IP - BIG-IP2
+  bigip_selfip:
+    name: "{{ vlan_name }}"
+    address: "{{ self_ip2 }}"
+    netmask: "{{ self_subnet }}"
+    vlan: "{{ vlan_name }}"
+    provider: "{{ provider2 }}"
+  delegate_to: localhost
 
 - name: Create static default route
   bigip_static_route:
@@ -25,4 +40,14 @@
     mtu: 1500
     name: internet_out
     provider: "{{ provider }}"
+  delegate_to: localhost
+
+- name: Create static default route - BIG-IP2
+  bigip_static_route:
+    destination: 0.0.0.0
+    netmask: 0.0.0.0
+    gateway_address: "{{ default_gateway }}"
+    mtu: 1500
+    name: internet_out
+    provider: "{{ provider2 }}"
   delegate_to: localhost

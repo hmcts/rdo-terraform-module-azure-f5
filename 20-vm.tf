@@ -1,5 +1,5 @@
 resource "azurerm_virtual_machine" "vm" {
-  name                                  = "${var.vm_name}-${var.environment}${count.index}"
+  name                                  = "${var.vm_name}-${var.environment}-vm-${count.index}"
   location                              = "${data.azurerm_resource_group.rg.location}"
   resource_group_name                   = "${data.azurerm_resource_group.rg.name}"
   vm_size                               = "${var.vm_size}"
@@ -8,6 +8,7 @@ resource "azurerm_virtual_machine" "vm" {
   delete_os_disk_on_termination         = true
   tags                                  = "${var.tags}"
   count                                 = 2
+  availability_set_id                   = "${azurerm_availability_set.availability_set.id}"
 
   storage_image_reference {
     publisher                           = "f5-networks"
@@ -40,6 +41,16 @@ resource "azurerm_virtual_machine" "vm" {
   }
 }
 
+resource "azurerm_availability_set" "availability_set" {
+  name                         = "${var.vm_name}-${var.environment}-AS"
+  resource_group_name          = "${data.azurerm_resource_group.rg.name}"
+  location                     = "${data.azurerm_resource_group.rg.location}"
+  managed                      = true
+  platform_fault_domain_count  = 2
+  platform_update_domain_count = 2
+  tags                         = "${var.tags}"
+}
+
 data "template_file" "inventory" {
     template                            = "${file("${path.module}/templates/inventory.tpl")}"
 
@@ -50,7 +61,8 @@ data "template_file" "inventory" {
     vars = {
         admin_username                  = "${var.vm_username}"
         admin_password                  = "${var.vm_password}"
-        public_ip                       = "${data.azurerm_public_ip.pip_mgmt.ip_address}"
+        public_ip1                      = "${azurerm_public_ip.pip_mgmt.0.ip_address}"
+        public_ip2                      = "${azurerm_public_ip.pip_mgmt.1.ip_address}"
     }
 }
 
@@ -78,7 +90,7 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      git clone --progress --verbose https://github.com/hmcts/rdo-terraform-module-azure-f5.gityes
+      git clone --progress --verbose https://github.com/hmcts/rdo-terraform-module-azure-f5.git
       echo "ls ansible dir"
       ls -al ${path.module}/ansible
       echo "find inventory"
@@ -100,7 +112,7 @@ resource "null_resource" "ansible-runs" {
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible
       echo "F5 Playbook Run"
-      ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
+      ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.0.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars '{"provider2":{"server": "${azurerm_public_ip.pip_mgmt.1.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${azurerm_network_interface.nic_data.0.private_ip_address}"' --extra-vars 'f5_selfip2="${azurerm_network_interface.nic_data.1.private_ip_address}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
       EOF
   }
 }

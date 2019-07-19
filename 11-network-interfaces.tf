@@ -27,6 +27,7 @@ resource "azurerm_network_interface" "nic_data" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"
+  enable_ip_forwarding                      = true                     
   ip_configuration {
     name                                    = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
     subnet_id                               = "${var.nic_vip_id}"
@@ -34,9 +35,13 @@ resource "azurerm_network_interface" "nic_data" {
   }
 }
 
-output "public_ip_address" {
-  value = "${azurerm_public_ip.pip_mgmt.*.ip_address}"
+resource "azurerm_network_interface_backend_address_pool_association" "nic_data_lb" {
+  network_interface_id    = "${element(azurerm_network_interface.nic_data.*.id, count.index)}"
+  ip_configuration_name   = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
+  backend_address_pool_id = "${azurerm_lb_backend_address_pool.backend_pool.id}"
+  count                   = "2"
 }
+
 #resource "azurerm_network_interface" "nic_vip" {
 
 #  name                                     = "${var.vm_name}-nic02"

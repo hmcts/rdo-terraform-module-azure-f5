@@ -30,8 +30,9 @@ from_address: dmz@reform.hmcts.net
 # iApp Install
 package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"
 
-vlan_name: "dmz-transit"
+vlan_name: "inside"
 
 self_ip: "{{ f5_selfip }}"
+self_ip2: "{{ f5_selfip2 }}"
 
 self_subnet: "{{ f5_selfsubnet }}"
