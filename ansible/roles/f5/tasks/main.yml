@@ -54,8 +54,8 @@
 - name: Network Setup
   include_tasks: network.yml
 
-#- name: Installing AS3 iApp
-#  include_tasks: as3.yml
+- name: Installing AS3 iApp
+  include_tasks: as3.yml
 
 - name: Add System Users
   include_tasks: users.yml
