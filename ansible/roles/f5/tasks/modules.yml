@@ -1,10 +1,10 @@
 ---
-#- name: Provision ASM Module
-#  bigip_provision:
-#    module: asm
-#    level: nominal
-#    provider: "{{ provider }}"
-#  delegate_to: localhost
+- name: Provision ASM Module
+  bigip_provision:
+    module: asm
+    level: nominal
+    provider: "{{ provider }}"
+  delegate_to: localhost
 
 #- name: Import ASM policy
 #  bigip_asm_policy_import:
