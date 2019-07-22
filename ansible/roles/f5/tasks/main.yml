@@ -4,23 +4,11 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Wait for BIG-IP to be ready to take configuration - BIG-IP2
-  bigip_wait:
-    provider:  "{{ provider2 }}"
-  delegate_to: localhost
-
 - name: Disable the setup utility
   bigip_sys_global:
     gui_setup: no
     banner_text: "{{ bannertxt }}"
     provider:  "{{ provider }}"
-  delegate_to: localhost
-
-- name: Disable the setup utility - BIG-IP2
-  bigip_sys_global:
-    gui_setup: no
-    banner_text: "{{ bannertxt }}"
-    provider:  "{{ provider2 }}"
   delegate_to: localhost
 
 - name: Set the hostname of the BIG-IP
@@ -29,27 +17,24 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Set the hostname of the BIG-IP - BIG-IP2
-  bigip_hostname:
-    hostname: "{{ hostname }}"
-    provider:  "{{ provider2 }}"
+
+- name: Use a file lookup to import PEM Certificate
+  bigip_ssl_certificate:
+    name: star-platform-hmcts-net
+    state: present
+    #content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.crt') }}"
+    content: "{{ lookup('file', '/mnt/c/Users/Daniel/Nextcloud/HMCTS Workspace/ctsc-email-azure-infrastructure/terraform/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.crt') }}"
+    provider:  "{{ provider }}"
   delegate_to: localhost
 
-#- name: Use a file lookup to import PEM Certificate
-#  bigip_ssl_certificate:
-#    name: star-platform-hmcts-net
-#    state: present
-#   content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.crt') }}"
-#    provider:  "{{ provider }}"
-#  delegate_to: localhost
-
-#- name: Use a file lookup to import key
-#  bigip_ssl_key:
-#    name: star-platform-hmcts-net
-#    state: present
-#    content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.key') }}"
- #   provider:  "{{ provider }}"
-#  delegate_to: localhost
+- name: Use a file lookup to import key
+  bigip_ssl_key:
+    name: star-platform-hmcts-net
+    state: present
+    #content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.key') }}"
+    content: "{{ lookup('file', '/mnt/c/Users/Daniel/Nextcloud/HMCTS Workspace/ctsc-email-azure-infrastructure/terraform/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.key') }}"
+    provider:  "{{ provider }}"
+  delegate_to: localhost
 
 - name: Setting Device SSL Setup
   bigip_command:
@@ -63,18 +48,6 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Setting Device SSL Setup - BIG-IP2
-  bigip_command:
-    commands:
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key
-      - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/server.key ssl-certfile /config/httpd/conf/ssl.crt/server.crt
-      - tmsh save /sys config partitions all
-      #- tmsh restart /sys service httpd
-      #- sleep 5    
-    provider:  "{{ provider2 }}"
-  delegate_to: localhost
-
 - name: System Setup
   include_tasks: system.yml
 
@@ -84,11 +57,11 @@
 - name: Network Setup
   include_tasks: network.yml
 
-- name: Installing AS3 iApp
-  include_tasks: as3.yml
+#- name: Installing AS3 iApp
+#  include_tasks: as3.yml
 
-#- name: Add System Users
-#  include_tasks: users.yml
+- name: Add System Users
+  include_tasks: users.yml
 
 #- name: Reboot-BIG-IP
 #  bigip_command:

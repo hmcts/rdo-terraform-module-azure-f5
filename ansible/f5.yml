@@ -5,19 +5,3 @@
   roles:
     - f5devcentral.f5ansible
     - f5
- # vars:
- #   provider:
- #     server: ${public_ip1}
- #     user: admin_username
- #     password: admin_password
- #     server_port: 443
- #     validate_certs: no
- #     timeout: 300
-
-  #  provider2:
-  #    server: ${public_ip2}
-  #    user: admin_username
-  #    password: admin_password
-  #    server_port: 443
-  #    validate_certs: no
-  #    timeout: 300

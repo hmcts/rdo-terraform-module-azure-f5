@@ -6,13 +6,6 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: Set the DNS settings on the BIG-IP - BIG-IP2
-  bigip_device_dns:
-    name_servers: "{{ name_servers }}"
-    search: "{{ dns_search }}"
-    provider:  "{{ provider2 }}"
-  delegate_to: localhost
-
 - name: 'f5 | set ntp'
   bigip_device_ntp:
     ntp_servers: "{{ ntp_servers }}"
@@ -20,12 +13,6 @@
     provider: "{{ provider }}"
   delegate_to: localhost
 
-- name: 'f5 | set ntp - BIG-IP2'
-  bigip_device_ntp:
-    ntp_servers: "{{ ntp_servers }}"
-    timezone: "{{ timezone }}"
-    provider: "{{ provider2 }}"
-  delegate_to: localhost
 
 - name: Create a base SMTP server configuration
   bigip_smtp:
@@ -36,13 +23,3 @@
     state: present
     provider: "{{ provider }}"
   delegate_to: localhost
-
-- name: Create a base SMTP server configuration - BIG-IP2
-  bigip_smtp:
-    name: smtp_reform
-    smtp_server: "{{ smtp_server }}"
-    local_host_name: "{{ local_host_name }}"
-    from_address: "{{ from_address }}"
-    state: present
-    provider: "{{ provider2 }}"
-  delegate_to: localhost      
