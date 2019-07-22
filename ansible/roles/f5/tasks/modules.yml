@@ -1,17 +1,17 @@
 ---
-- name: Provision ASM Module
-  bigip_provision:
-    module: asm
-    level: nominal
-    provider: "{{ provider }}"
-  delegate_to: localhost
+#- name: Provision ASM Module
+#  bigip_provision:
+#    module: asm
+#    level: nominal
+#    provider: "{{ provider }}"
+#  delegate_to: localhost
 
-- name: Import ASM policy
-  bigip_asm_policy_import:
-    name: asmv131_policy
-    source: f5-asm-policy-templates/owasp_ready_template/owasp-auto-tune-v1.1.xml
-    provider: "{{ provider }}"
-  delegate_to: localhost
+#- name: Import ASM policy
+#  bigip_asm_policy_import:
+#    name: asmv131_policy
+#    source: f5-asm-policy-templates/owasp_ready_template/owasp-auto-tune-v1.1.xml
+#    provider: "{{ provider }}"
+#  delegate_to: localhost
 
 - name: Setting Device SSL Setup
   bigip_command:
