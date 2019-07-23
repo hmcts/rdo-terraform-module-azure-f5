@@ -8,9 +8,9 @@ data "azurerm_subnet" "subnet" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
 }
 
-data "azurerm_resource_group" "ctsc-email-pan-sandbox" {
-  name                                      = "ctsc-email-pan-sandbox"
-}
+#data "azurerm_resource_group" "ctsc-email-pan-sandbox" {
+#  name                                      = "ctsc-email-pan-sandbox"
+#}
 
 #data "azurerm_lb" "palo_lb_ip" {
 #  name                                      = "ctsc-pan-lb"
