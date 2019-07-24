@@ -8,15 +8,15 @@ locals {
 #  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
 #}
 
-#data "azurerm_resource_group" "ctsc-email-pan-sandbox" {
-#  name                                      = "ctsc-email-pan-sandbox"
-#}
+data "azurerm_resource_group" "ctsc-email-pan-sandbox" {
+  name                                      = "ctsc-email-pan-sandbox"
+}
 
-#data "azurerm_lb" "palo_lb_ip" {
-#  name                                      = "ctsc-pan-lb"
-#  resource_group_name                       = "${data.azurerm_resource_group.ctsc-email-pan-sandbox.name}"
-#}
+data "azurerm_lb" "palo_lb_ip" {
+  name                                      = "ctsc-pan-lb"
+  resource_group_name                       = "${data.azurerm_resource_group.ctsc-email-pan-sandbox.name}"
+}
 
-#locals {
-#  palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_address}"
-#}
+locals {
+  palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_address}"
+}
