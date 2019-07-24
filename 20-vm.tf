@@ -103,7 +103,7 @@ resource "null_resource" "ansible-runs" {
       cat ./.terraform/modules/f5-01/ansible/f5.yml
       echo "ansible version"
       ansible --version
-      git clone https://github.com/f5devcentral/f5-asm-policy-template-v13.git;
+      git clone https://github.com/f5devcentral/f5-asm-policy-templates.git;
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name dmzsandbox01
       echo "finding Certs"
