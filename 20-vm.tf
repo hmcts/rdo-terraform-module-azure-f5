@@ -78,28 +78,29 @@ resource "null_resource" "ansible-runs" {
   provisioner "local-exec" {
     command = <<EOF
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-      echo "ls ansible dir"
-      ls -al ${path.module}/ansible
-      echo "find inventory"
-      find . -name inventory
-      echo "find f5.yml"
-      find . -name f5.yml
-      echo "cat inventory"
-      cat ./.terraform/modules/f5-01/ansible/inventory
-      echo "cat f5.yml"
-      cat ./.terraform/modules/f5-01/ansible/f5.yml
-      echo "ansible version"
-      ansible --version
-      #git clone https://github.com/f5devcentral/f5-asm-policy-templates.git;
+      #echo "ls ansible dir"
+      #ls -al ${path.module}/ansible
+      #echo "find inventory"
+      #find . -name inventory
+      #echo "find f5.yml"
+      #find . -name f5.yml
+      #echo "cat inventory"
+      #cat ./.terraform/modules/f5-01/ansible/inventory
+      #echo "cat f5.yml"
+      #cat ./.terraform/modules/f5-01/ansible/f5.yml
+      #echo "ansible version"
+      #ansible --version
+      git clone https://github.com/f5devcentral/f5-asm-policy-templates.git;
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name dmzsandbox01
-      echo "finding Certs"
-      find . -name star-platform-hmcts-net.crt
-      find . -name star-platform-hmcts-net.key
+      #echo "finding Certs"
+      #find . -name star-platform-hmcts-net.crt
+      #find . -name star-platform-hmcts-net.key
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"
-      ANSIBLE_DEBUG=1 ansible-playbook -i ${path.module}/ansible/inventory -vvvvvvv ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
+      # ANSIBLE_DEBUG=1 # place before playbooks to debug
+      ansible-playbook -i ${path.module}/ansible/inventory -v ${path.module}/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
       EOF
   }
 }
