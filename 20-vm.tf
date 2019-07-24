@@ -100,6 +100,7 @@ resource "null_resource" "ansible-runs" {
       pwd
       ls -al
       echo "Galaxy F5 playbook install"
+      ls -al rdo-terraform-module-azure-f5
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"
       # ANSIBLE_DEBUG=1 # place before playbooks to debug
