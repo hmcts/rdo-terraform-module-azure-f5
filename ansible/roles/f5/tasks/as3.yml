@@ -2,7 +2,6 @@
 - name: Install AS3
   bigip_lx_package:
     package: "{{ package }}"
-    state: present
     provider: "{{ provider }}"
   delegate_to: localhost
   
