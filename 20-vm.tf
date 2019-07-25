@@ -78,9 +78,7 @@ resource "null_resource" "ansible-runs" {
   provisioner "local-exec" {
     command = <<EOF
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-      cd rdo-terraform-module-azure-f5;
       git clone https://github.com/hmcts/f5-asm-policy-templates.git;
-      cd ..
       #echo "ls ansible dir"
       #ls -al ${path.module}/ansible
       #echo "find inventory"
@@ -93,16 +91,12 @@ resource "null_resource" "ansible-runs" {
       #cat ./.terraform/modules/f5-01/ansible/f5.yml
       #echo "ansible version"
       #ansible --version
-
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
       az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name dmzsandbox01
       #echo "finding Certs"
       #find . -name star-platform-hmcts-net.crt
       #find . -name star-platform-hmcts-net.key
-      pwd
-      ls -al
       echo "Galaxy F5 playbook install"
-      ls -al rdo-terraform-module-azure-f5
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"
       # ANSIBLE_DEBUG=1 # place before playbooks to debug
