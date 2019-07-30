@@ -28,7 +28,7 @@ local_host_name: dmz.reform.hmcts.net
 from_address: dmz@reform.hmcts.net
 
 # iApp Install
-package: "files/f5-appsvcs-3.5.1-5.noarch.rpm"
+package: "/home/rdo-admin/.vsts-agent/_work/1/s/terraform/rdo-terraform-module-azure-f5/ansible/files/f5-appsvcs-3.5.1-5.noarch.rpm"
 
 vlan_name: "inside"
 
