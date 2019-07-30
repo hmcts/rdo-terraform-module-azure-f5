@@ -2,6 +2,7 @@
 - name: Wait for BIG-IP to be ready to take configuration
   bigip_wait:
     provider:  "{{ provider }}"
+    delay: 5
     timeout: 300
   delegate_to: localhost
 
