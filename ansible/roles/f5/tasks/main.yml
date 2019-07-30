@@ -1,10 +1,10 @@
 ---
-#- name: Wait for BIG-IP to be ready to take configuration
-#  bigip_wait:
-#    provider:  "{{ provider }}"
-#    delay: 5
-#    timeout: 150
-#  delegate_to: localhost
+- name: Wait for BIG-IP to be ready to take configuration
+  bigip_wait:
+    provider:  "{{ provider }}"
+    delay: 5
+    timeout: 150
+  delegate_to: localhost
 
 - name: Disable the setup utility
   bigip_sys_global:
