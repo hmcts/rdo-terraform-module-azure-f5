@@ -3,7 +3,7 @@
   bigip_wait:
     provider:  "{{ provider }}"
     delay: 5
-    timeout: 300
+    timeout: 150
   delegate_to: localhost
 
 - name: Disable the setup utility
