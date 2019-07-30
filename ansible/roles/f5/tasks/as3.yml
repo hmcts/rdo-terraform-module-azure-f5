@@ -1,6 +1,6 @@
 ---
 - name: Install AS3
-  bigip_lx_package:
+  bigip_iapplx_package:
     package: "{{ package }}"
     provider: "{{ provider }}"
   delegate_to: localhost
