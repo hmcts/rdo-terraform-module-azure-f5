@@ -14,7 +14,7 @@ resource "azurerm_virtual_machine" "vm" {
     publisher                           = "f5-networks"
     offer                               = "f5-big-ip-best"
     sku                                 = "${var.vm_sku}"
-    version                             = "latest"# - lastest 14.0.003xxx - takes too long to provision
+    version                             = "14.0.001000" #"latest" - lastest 14.0.003xxx - takes too long to provision
   }
   plan {
     publisher                           = "f5-networks"
