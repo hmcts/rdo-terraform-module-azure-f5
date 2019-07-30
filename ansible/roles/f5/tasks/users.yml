@@ -1,12 +1,12 @@
 ---
 
-#- name: Add F5 AS3 user
-#  bigip_user:
-#    username_credential: "{{ as3_username }}"
-#    password_credential: "{{ as3_password }}"
-#    full_name: as3_admin
-#    partition_access: all:admin
-#    update_password: on_create
-#    state: present
-#    provider: "{{ provider }}"
-#  delegate_to: localhost
+- name: Add F5 AS3 user
+  bigip_user:
+    username_credential: "{{ as3_username }}"
+    password_credential: "{{ as3_password }}"
+    full_name: as3_admin
+    partition_access: all:admin
+    update_password: on_create
+    state: present
+    provider: "{{ provider }}"
+  delegate_to: localhost
