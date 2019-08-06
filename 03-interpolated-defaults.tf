@@ -13,7 +13,7 @@ data "azurerm_resource_group" "ctsc-email-pan-sandbox" {
 }
 
 data "azurerm_lb" "palo_lb_ip" {
-  name                                      = "ctsc-email-pan-elb"
+  name                                      = "ctsc-email-pan-ilb"
   resource_group_name                       = "${data.azurerm_resource_group.ctsc-email-pan-sandbox.name}"
 }
 
