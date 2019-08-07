@@ -13,6 +13,7 @@ resource "azurerm_network_interface" "nic_mgmt" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"
+  sku                                       = "Standard"
   ip_configuration {
     name                                    = "${var.vm_name}-${var.environment}-mgmt-nic-${count.index}"
     subnet_id                               = "${var.subnet_mgmt_id}"
@@ -27,7 +28,8 @@ resource "azurerm_network_interface" "nic_data" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"
-  enable_ip_forwarding                      = true                     
+  enable_ip_forwarding                      = true 
+  sku                                       = "Standard"                    
   ip_configuration {
     name                                    = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
     subnet_id                               = "${var.nic_vip_id}"
