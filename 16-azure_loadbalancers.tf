@@ -4,12 +4,14 @@ resource "azurerm_public_ip" "pip_lb" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
   allocation_method                         = "Static"
   tags                                      = "${var.tags}"
+  sku                                       = "Standard"
 }
 
 resource "azurerm_lb" "f5_ext_lb" {
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
   name                = "${var.vm_name}-${var.environment}-elb"
   location            = "${data.azurerm_resource_group.rg.location}"
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                          = "LoadBalancerFrontEnd"
