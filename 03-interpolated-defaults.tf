@@ -18,5 +18,5 @@ data "azurerm_lb" "palo_lb_ip" {
 }
 
 locals {
-  palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_addresses.1}"
+  palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_address}"
 }
