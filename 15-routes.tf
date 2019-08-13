@@ -8,7 +8,7 @@ resource "azurerm_route_table" "route_main" {
 
   route {
     name                                    = "to_hub_fw"
-    address_prefix                          = "10.231.0.0/16" #need to mask
+    address_prefix                          = "10.0.0.0/8" #need to mask
     next_hop_type                           = "VirtualAppliance"
     next_hop_in_ip_address                  = "${local.palo_lb_ip}"
   }
