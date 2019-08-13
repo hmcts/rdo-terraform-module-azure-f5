@@ -4,7 +4,7 @@ resource "azurerm_public_ip" "pip_lb" {
   resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
   allocation_method                         = "Static"
   tags                                      = "${var.tags}"
-  sku                                       = "Standard"
+#  sku                                       = "Standard"
 }
 
 resource "azurerm_lb" "f5_ext_lb" {

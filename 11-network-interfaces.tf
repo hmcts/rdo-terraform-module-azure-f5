@@ -5,7 +5,7 @@ resource "azurerm_public_ip" "pip_mgmt" {
   allocation_method                         = "Static"
   tags                                      = "${var.tags}"
   count                                     = "2"
-  sku                                       = "Standard"
+#  sku                                       = "Standard"
 }
 
 resource "azurerm_network_interface" "nic_mgmt" {
