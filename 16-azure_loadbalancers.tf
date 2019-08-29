@@ -77,6 +77,19 @@ resource "azurerm_lb_rule" "smtp-465-rule" {
   probe_id                       = "${azurerm_lb_probe.smtp-465-probe.id}"
 }
 
+resource "azurerm_lb_rule" "starttls-587-rule" {
+  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
+  name                            = "STARTTLS-587-LBRule"
+  protocol                        = "tcp"
+  frontend_port                   = 587
+  backend_port                    = 587
+  frontend_ip_configuration_name  = "LoadBalancerFrontEnd"
+  enable_floating_ip             = false
+  backend_address_pool_id        = "${azurerm_lb_backend_address_pool.backend_pool.id}"
+  probe_id                       = "${azurerm_lb_probe.starttls-587-probe.id}"
+}
+
 resource "azurerm_lb_probe" "smtp-25-probe" {
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
@@ -106,5 +119,13 @@ resource "azurerm_lb_probe" "smtp-465-probe" {
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "SMTP-465-probe"
   port                = 465
+  interval_in_seconds = 5
+}
+
+resource "azurerm_lb_probe" "starttls-587-probe" {
+  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
+  name                = "STARTTLS-587-probe"
+  port                = 25
   interval_in_seconds = 5
 }
