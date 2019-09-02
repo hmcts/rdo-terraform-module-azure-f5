@@ -126,6 +126,6 @@ resource "azurerm_lb_probe" "starttls-587-probe" {
   resource_group_name = "${data.azurerm_resource_group.rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "STARTTLS-587-probe"
-  port                = 25
+  port                = 587
   interval_in_seconds = 5
 }
