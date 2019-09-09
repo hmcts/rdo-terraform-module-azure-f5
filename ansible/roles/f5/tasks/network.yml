@@ -10,6 +10,7 @@
 - name: Create Self IP
   bigip_selfip:
     name: "{{ vlan_name }}"
+    allow_service: "default"
     address: "{{ self_ip }}"
     netmask: "{{ self_subnet }}"
     vlan: "{{ vlan_name }}"
