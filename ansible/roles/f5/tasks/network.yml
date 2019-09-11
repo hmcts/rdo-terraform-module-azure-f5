@@ -27,3 +27,13 @@
     name: internet_out
     provider: "{{ provider }}"
   delegate_to: localhost
+
+- name: Create static default route 2
+  bigip_static_route:
+    destination: 168.63.129.16
+    netmask: 255.255.255.255
+    gateway_address: "{{ default_gateway }}"
+    mtu: 1500
+    name: internet_out
+    provider: "{{ provider }}"
+  delegate_to: localhost
