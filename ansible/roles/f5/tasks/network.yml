@@ -34,6 +34,6 @@
     netmask: 255.255.255.255
     gateway_address: "{{ default_gateway }}"
     mtu: 1500
-    name: internet_out
+    name: azure_lb
     provider: "{{ provider }}"
   delegate_to: localhost
