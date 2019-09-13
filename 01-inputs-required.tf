@@ -58,4 +58,5 @@ variable "loadbalancer_data_subnet" {
   description                             = ""
 }
 
-
+variable "sub_full_name" {
+}
