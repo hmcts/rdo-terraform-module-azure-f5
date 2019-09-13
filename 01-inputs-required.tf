@@ -63,3 +63,6 @@ variable "sub_full_name" {
 
 variable "subscription" {
 }
+
+variable "sub_full_name" {
+}
