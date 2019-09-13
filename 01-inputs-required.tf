@@ -60,3 +60,6 @@ variable "loadbalancer_data_subnet" {
 
 variable "sub_full_name" {
 }
+
+variable "subscription" {
+}
