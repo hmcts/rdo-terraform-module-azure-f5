@@ -6,3 +6,5 @@ terraform.tfvars
 crash.log
 modules/
 ansible/inventory
+# Vim swap files
+*.sw*
