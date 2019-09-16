@@ -9,7 +9,8 @@ locals {
 #}
 
 resource "null_resource" "palo_link" {
-  triggers = "${var.pan_resource_group}"
+  depends_on = ["var.pan_resource_group"]
+  #triggers = "${var.pan_resource_group}"
 }
 
 data "azurerm_resource_group" "ctsc-email-pan" {
