@@ -8,10 +8,6 @@ locals {
 #  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
 #}
 
-resource "null_resource" "palo_link" {
-  depends_on = ["var.pan_resource_group"]
-  #triggers = "${var.pan_resource_group}"
-}
 
 data "azurerm_resource_group" "ctsc-email-pan" {
   #id = "${var.pan_resource_group}"
