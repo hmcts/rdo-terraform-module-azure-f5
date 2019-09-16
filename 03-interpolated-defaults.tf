@@ -8,7 +8,7 @@ locals {
 #  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
 #}
 
-resource "null_resource" {
+resource "null_resource" "palo_link" {
   triggers = "${var.pan_resource_group}"
 }
 
