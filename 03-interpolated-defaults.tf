@@ -9,7 +9,7 @@ locals {
 #}
 
 data "azurerm_resource_group" "ctsc-email-pan" {
-  id = "${var.pan_resource_group}"
+  #id = "${var.pan_resource_group}"
   name                                      = "ctsc-email-pan-${var.environment}"
 }
 
