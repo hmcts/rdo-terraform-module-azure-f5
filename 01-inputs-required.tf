@@ -64,3 +64,5 @@ variable "sub_full_name" {
 variable "subscription" {
 }
 
+variable "pan_resource_group" {
+}
