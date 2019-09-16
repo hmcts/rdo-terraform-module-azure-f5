@@ -8,6 +8,10 @@ locals {
 #  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
 #}
 
+resource "null_resource" {
+  triggers = "${var.pan_resource_group}"
+}
+
 data "azurerm_resource_group" "ctsc-email-pan" {
   #id = "${var.pan_resource_group}"
   name                                      = "ctsc-email-pan-${var.environment}"
