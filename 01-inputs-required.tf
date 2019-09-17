@@ -66,3 +66,6 @@ variable "subscription" {
 
 variable "pan_resource_group" {
 }
+
+variable "palo_lb_ip" {
+}
