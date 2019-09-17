@@ -9,16 +9,16 @@ locals {
 #}
 
 
-data "azurerm_resource_group" "ctsc-email-pan" {
-  #id = "${var.pan_resource_group}"
-  name                                      = "ctsc-email-pan-${var.environment}"
-}
+# data "azurerm_resource_group" "ctsc-email-pan" {
+#   #id = "${var.pan_resource_group}"
+#   name                                      = "ctsc-email-pan-${var.environment}"
+# }
 
-data "azurerm_lb" "palo_lb_ip" {
-  name                                      = "ctsc-email-pan-ilb"
-  resource_group_name                       = "${data.azurerm_resource_group.ctsc-email-pan.name}"
-}
+# data "azurerm_lb" "palo_lb_ip" {
+#   name                                      = "ctsc-email-pan-ilb"
+#   resource_group_name                       = "${data.azurerm_resource_group.ctsc-email-pan.name}"
+# }
 
-locals {
-  palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_address}"
-}
+# locals {
+#   palo_lb_ip                                   = "${data.azurerm_lb.palo_lb_ip.private_ip_address}"
+# }
