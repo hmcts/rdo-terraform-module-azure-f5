@@ -50,7 +50,7 @@ variable "loadbalancer_subnet_management" {
   description                             = ""
 }
 
-variable "loadbalancer_vnet" {
+variable "loadbalancer_vnet_name" {
   description                             = ""
 }
 
