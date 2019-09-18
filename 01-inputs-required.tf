@@ -54,7 +54,11 @@ variable "loadbalancer_vnet" {
   description                             = ""
 }
 
-variable "loadbalancer_data_subnet" {
+variable "loadbalancer_data_subnet_name" {
+  description                             = ""
+}
+
+variable "loadbalancer_data_subnet_id" {
   description                             = ""
 }
 
