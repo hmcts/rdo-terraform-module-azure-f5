@@ -9,3 +9,7 @@ output "f5_vnet_id" {
 output "f5_vnet_name" {
   value = "${azurerm_virtual_network.f5_vnet.name}"
 }
+
+output "f5_rg_name" {
+  value = "${azurerm_resource_group.f5-rg.name}"
+}
