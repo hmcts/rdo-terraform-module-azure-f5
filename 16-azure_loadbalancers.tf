@@ -1,16 +1,16 @@
 resource "azurerm_public_ip" "pip_lb" {
   name                                      = "${var.vm_name}-${var.environment}-lb-pip"
-  location                                  = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+  location                                  = "${azurerm_resource_group.f5-rg.location}"
+  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   allocation_method                         = "Static"
   tags                                      = "${var.tags}"
 #  sku                                       = "Standard"
 }
 
 resource "azurerm_lb" "f5_ext_lb" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   name                = "${var.vm_name}-${var.environment}-elb"
-  location            = "${data.azurerm_resource_group.rg.location}"
+  location            = "${azurerm_resource_group.f5-rg.location}"
  # sku                 = "Standard"
 
   frontend_ip_configuration {
@@ -20,13 +20,13 @@ resource "azurerm_lb" "f5_ext_lb" {
 }
 
 resource "azurerm_lb_backend_address_pool" "backend_pool" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "F5BackendPool1"
 }
 
 resource "azurerm_lb_rule" "smtp-25-rule" {
-  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name             = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
   name                            = "SMTP-25-LBRule"
   protocol                        = "tcp"
@@ -39,7 +39,7 @@ resource "azurerm_lb_rule" "smtp-25-rule" {
 }
 
 resource "azurerm_lb_rule" "imap-143-rule" {
-  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name             = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
   name                            = "IMAP-143-LBRule"
   protocol                        = "tcp"
@@ -52,7 +52,7 @@ resource "azurerm_lb_rule" "imap-143-rule" {
 }
 
 resource "azurerm_lb_rule" "imaps-993-rule" {
-  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name             = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
   name                            = "IMAPS-993-LBRule"
   protocol                        = "tcp"
@@ -65,7 +65,7 @@ resource "azurerm_lb_rule" "imaps-993-rule" {
 }
 
 resource "azurerm_lb_rule" "smtp-465-rule" {
-  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name             = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
   name                            = "SMTP-465-LBRule"
   protocol                        = "tcp"
@@ -78,7 +78,7 @@ resource "azurerm_lb_rule" "smtp-465-rule" {
 }
 
 resource "azurerm_lb_rule" "starttls-587-rule" {
-  resource_group_name             = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name             = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id                 = "${azurerm_lb.f5_ext_lb.id}"
   name                            = "STARTTLS-587-LBRule"
   protocol                        = "tcp"
@@ -91,7 +91,7 @@ resource "azurerm_lb_rule" "starttls-587-rule" {
 }
 
 resource "azurerm_lb_probe" "smtp-25-probe" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "SMTP-25-probe"
   port                = 25
@@ -99,7 +99,7 @@ resource "azurerm_lb_probe" "smtp-25-probe" {
 }
 
 resource "azurerm_lb_probe" "imap-143-probe" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "IMAP-143-probe"
   port                = 143
@@ -107,7 +107,7 @@ resource "azurerm_lb_probe" "imap-143-probe" {
 }
 
 resource "azurerm_lb_probe" "imaps-993-probe" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "IMAPS-993-probe"
   port                = 993
@@ -115,7 +115,7 @@ resource "azurerm_lb_probe" "imaps-993-probe" {
 }
 
 resource "azurerm_lb_probe" "smtp-465-probe" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "SMTP-465-probe"
   port                = 465
@@ -123,7 +123,7 @@ resource "azurerm_lb_probe" "smtp-465-probe" {
 }
 
 resource "azurerm_lb_probe" "starttls-587-probe" {
-  resource_group_name = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name = "${azurerm_resource_group.f5-rg.name}"
   loadbalancer_id     = "${azurerm_lb.f5_ext_lb.id}"
   name                = "STARTTLS-587-probe"
   port                = 587
