@@ -34,6 +34,8 @@ resource "azurerm_network_interface" "nic_data" {
     subnet_id                               = "${var.nic_vip_id}"
     private_ip_address_allocation           = "dynamic"
   }
+
+  depends_on = ["azurerm_resource_group.f5-rg"]
 }
 
 resource "azurerm_network_interface_backend_address_pool_association" "nic_data_lb" {
