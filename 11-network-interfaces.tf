@@ -25,7 +25,7 @@ resource "azurerm_network_interface" "nic_mgmt" {
 resource "azurerm_network_interface" "nic_data" {
   name                                      = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
   location                                  = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"
   enable_ip_forwarding                      = true                   

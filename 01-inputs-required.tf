@@ -54,6 +54,10 @@ variable "loadbalancer_vnet_name" {
   description                             = ""
 }
 
+variable "loadbalancer_rg_name" {
+  description                             = ""
+}
+
 variable "loadbalancer_data_subnet_name" {
   description                             = ""
 }
