@@ -77,6 +77,11 @@ variable "loadbalancer_mgmt_subnet_id" {
 variable "loadbalancer_mgmt_subnet_prefix" {
   description                             = ""
 }
+
+variable "loadbalancer_address_space" {
+  description                             = ""
+}
+
 variable "sub_full_name" {
 }
 
