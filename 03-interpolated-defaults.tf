@@ -1,5 +1,6 @@
 locals {
-  default_gateway                                   = "${cidrhost(data.azurerm_subnet.subnet.address_prefix,1)}"
+  #default_gateway                                   = "${cidrhost(data.azurerm_subnet.subnet.address_prefix,1)}"
+  default_gateway                                   = "${cidrhost(var.loadbalancer_data_subnet_prefix,1)}"
 }
 
 #data "azurerm_subnet" "subnet" {

@@ -62,6 +62,10 @@ variable "loadbalancer_data_subnet_id" {
   description                             = ""
 }
 
+variable "loadbalancer_data_subnet_prefix" {
+  description                             = ""
+}
+
 variable "sub_full_name" {
 }
 
