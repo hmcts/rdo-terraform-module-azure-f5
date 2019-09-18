@@ -1,7 +1,7 @@
 resource "azurerm_public_ip" "pip_mgmt" {
   name                                      = "${var.vm_name}-${var.environment}-pip-${count.index}"
-  location                                  = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+  location                                  = "${azurerm_resource_group.f5-rg.location}"
+  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   allocation_method                         = "Static"
   tags                                      = "${var.tags}"
   count                                     = "2"
@@ -10,8 +10,8 @@ resource "azurerm_public_ip" "pip_mgmt" {
 
 resource "azurerm_network_interface" "nic_mgmt" {
   name                                      = "${var.vm_name}-${var.environment}-mgmt-nic-${count.index}"
-  location                                  = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+  location                                  = "${azurerm_resource_group.f5-rg.location}"
+  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"
   ip_configuration {
@@ -24,7 +24,7 @@ resource "azurerm_network_interface" "nic_mgmt" {
 
 resource "azurerm_network_interface" "nic_data" {
   name                                      = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
-  location                                  = "${data.azurerm_resource_group.rg.location}"
+  location                                  = "${azurerm_resource_group.f5-rg.location}"
   resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   tags                                      = "${var.tags}"
   count                                     = "2"

@@ -1,7 +1,7 @@
 resource "azurerm_route_table" "route_main" {
   name                                      = "${var.vm_name}-${var.environment}-udr"
-  location                                  = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                       = "${data.azurerm_resource_group.rg.name}"
+  location                                  = "${azurerm_resource_group.f5-rg.location}"
+  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
   disable_bgp_route_propagation             = true
   tags                                      = "${var.tags}"
 

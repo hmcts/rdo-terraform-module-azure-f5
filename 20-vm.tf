@@ -1,7 +1,7 @@
 resource "azurerm_virtual_machine" "vm" {
   name                                  = "${var.vm_name}-${var.environment}-vm-${count.index}"
-  location                              = "${data.azurerm_resource_group.rg.location}"
-  resource_group_name                   = "${data.azurerm_resource_group.rg.name}"
+  location                              = "${azurerm_resource_group.f5-rg.location}"
+  resource_group_name                   = "${azurerm_resource_group.f5-rg.name}"
   vm_size                               = "${var.vm_size}"
   network_interface_ids                 = ["${element(azurerm_network_interface.nic_mgmt.*.id, count.index)}", "${element(azurerm_network_interface.nic_data.*.id, count.index)}"]
   primary_network_interface_id          = "${element(azurerm_network_interface.nic_mgmt.*.id, count.index)}"
@@ -43,8 +43,8 @@ resource "azurerm_virtual_machine" "vm" {
 
 resource "azurerm_availability_set" "availability_set" {
   name                         = "${var.vm_name}-${var.environment}-AS"
-  resource_group_name          = "${data.azurerm_resource_group.rg.name}"
-  location                     = "${data.azurerm_resource_group.rg.location}"
+  resource_group_name          = "${azurerm_resource_group.f5-rg.name}"
+  location                     = "${azurerm_resource_group.f5-rg.location}"
   managed                      = true
   platform_fault_domain_count  = 2
   platform_update_domain_count = 2
