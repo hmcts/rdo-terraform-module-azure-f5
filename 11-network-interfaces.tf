@@ -41,6 +41,8 @@ resource "azurerm_network_interface_backend_address_pool_association" "nic_data_
   ip_configuration_name   = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
   backend_address_pool_id = "${azurerm_lb_backend_address_pool.backend_pool.id}"
   count                   = "2"
+
+  depends_on = ["azurerm_network_interface.nic_data"]
 }
 
 #resource "azurerm_network_interface" "nic_vip" {
