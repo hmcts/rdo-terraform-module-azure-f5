@@ -116,4 +116,5 @@ resource "null_resource" "ansible-runs" {
       ansible-playbook -i ${path.module}/ansible/inventory -vv ${path.module}/ansible/f5.yml -l f52 --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.1.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${azurerm_network_interface.nic_data.1.private_ip_address}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"'
       EOF
   }
+  depends_on = ["null_resource.update_inventory"]
 }
