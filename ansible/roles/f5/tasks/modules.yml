@@ -9,7 +9,7 @@
 - name: Import ASM policy
   bigip_asm_policy_import:
     name: asm_policy_1_1
-    source: "f5-asm-policy-templates/owasp_ready_template/owasp-auto-tune-v1.1.xml"
+    source: "{{ module_path }}/ansible/files/f5-asm-policy-templates/owasp_ready_template/owasp-auto-tune-v1.1.xml"
     provider: "{{ provider }}"
   delegate_to: localhost
 

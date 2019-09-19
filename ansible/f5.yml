@@ -2,9 +2,9 @@
 - hosts: all
   connection: local
   gather_facts: false
-  pre_tasks:
-    - name: What dir are we in
-      shell: pwd
+  #pre_tasks:
+    #- name: What dir are we in
+      #shell: pwd
   roles:
     - f5devcentral.f5ansible
     - f5
