@@ -3,7 +3,8 @@
   connection: local
   gather_facts: false
   pre_tasks:
-    shell: pwd
+    - name: What dir are we in
+      shell: pwd
   roles:
     - f5devcentral.f5ansible
     - f5
