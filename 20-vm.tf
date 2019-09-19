@@ -105,7 +105,7 @@ resource "null_resource" "ansible-runs" {
       ansible --version
       git clone https://github.com/f5devcentral/f5-asm-policy-templates.git;
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
-      az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name ctscemail${var.environment}mgmt --subscription ${var.sub_full_name}
+      az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name dmzsandbox01 --subscription DCD-CFT-Sandbox
       echo "finding Certs"
       find . -name star-platform-hmcts-net.crt
       find . -name star-platform-hmcts-net.key
