@@ -105,6 +105,7 @@ resource "null_resource" "ansible-runs" {
       ansible --version
       git clone https://github.com/f5devcentral/f5-asm-policy-templates.git;
 			cp ~/star-platform-hmcts-net.* ${path.module}/ansible
+			curl -o ansible/files/f5-appsvcs-3.5.1-5.noarch.rpm  https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.6.0/f5-appsvcs-3.5.1-5.noarch.rpm
       echo "finding Certs"
       find . -name star-platform-hmcts-net.crt
       find . -name star-platform-hmcts-net.key
