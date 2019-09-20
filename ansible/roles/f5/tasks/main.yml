@@ -19,6 +19,8 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
+- name: List our dir
+  shell: "{{ module_path }}/ansible/"
 
 - name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
@@ -26,13 +28,8 @@
     state: present
     content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.crt') }}"
     provider:  "{{ provider }}"
-  delegate_to: localhost  
-  register: crt_output
+  delegate_to: localhost
 
-- name: Path of CERT on F5
-  debug:
-    msg: "{{ crt_output.source_path }}"  
-    
 - name: Use a file lookup to import key
   bigip_ssl_key:
     name: star-platform-hmcts-net
@@ -44,8 +41,8 @@
 - name: Setting Device SSL Setup
   bigip_command:
     commands:
-      - cp  /var/config/rest/downloads/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt
-      - cp /var/config/rest/downloads/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key
+      - "cp {{ module_path }}/star-platform-hmcts-net.crt /config/httpd/conf/ssl.crt/server.crt"
+      - "cp {{ module_path }}/star-platform-hmcts-net.key /config/httpd/conf/ssl.key/server.key"
       - tmsh modify /sys httpd ssl-certkeyfile /config/httpd/conf/ssl.key/server.key ssl-certfile /config/httpd/conf/ssl.crt/server.crt
       - tmsh save /sys config partitions all
       #- tmsh restart /sys service httpd
