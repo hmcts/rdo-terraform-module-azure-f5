@@ -19,9 +19,6 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-- name: List our dir
-  shell: "{{ module_path }}/ansible/"
-
 - name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
@@ -52,7 +49,7 @@
   register: f5_ssl_output
 
 - debug:
-    var: f5_ssl_output.stdout_lines
+    var: f5_ssl_output
 
 - name: System Setup
   include_tasks: system.yml
