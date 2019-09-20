@@ -28,6 +28,10 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
   register: crt_output
+  
+- name: print all returned values
+  debug:
+    msg: "{{ crt_output }}"  
 
 - name: Use a file lookup to import key
   bigip_ssl_key:
