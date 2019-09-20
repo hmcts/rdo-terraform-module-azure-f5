@@ -49,6 +49,10 @@
       #- sleep 5    
     provider:  "{{ provider }}"
   delegate_to: localhost
+  register: f5_ssl_output
+
+- debug:
+    var: f5_ssl_output.stdout_lines
 
 - name: System Setup
   include_tasks: system.yml
