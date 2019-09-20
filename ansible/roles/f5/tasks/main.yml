@@ -29,9 +29,9 @@
   delegate_to: localhost
   register: crt_output
   
-- name: print all returned values
+- name: Path of CERT on F5
   debug:
-    msg: "{{ crt_output }}"  
+    msg: "{{ crt_output.source_path }}"  
 
 - name: Use a file lookup to import key
   bigip_ssl_key:
