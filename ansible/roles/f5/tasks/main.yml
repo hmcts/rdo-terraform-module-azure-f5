@@ -23,7 +23,7 @@
 - name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
-    state: present
+    state: absent
     content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.crt') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost  
@@ -31,7 +31,7 @@
 - name: Use a file lookup to import key
   bigip_ssl_key:
     name: star-platform-hmcts-net
-    state: present
+    state: absent
     content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
