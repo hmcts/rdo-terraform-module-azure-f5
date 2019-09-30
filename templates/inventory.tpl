@@ -1,8 +1,8 @@
 [f5]
-${public_ip1} 
+${private_ip1} 
 
 [f52]
-${public_ip2} 
+${private_ip2} 
 
 [f5:vars]
 ansible_connection=ssh

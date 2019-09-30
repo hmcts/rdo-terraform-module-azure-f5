@@ -63,6 +63,8 @@ data "template_file" "inventory" {
         admin_password                  = "${var.vm_password}"
         public_ip1                      = "${azurerm_public_ip.pip_mgmt.0.ip_address}"
         public_ip2                      = "${azurerm_public_ip.pip_mgmt.1.ip_address}"
+        private_ip1                     = "${azurerm_network_interface.nic_mgmt.0.ip_address}"
+        private_ip2                     = "${azurerm_network_interface.nic_mgmt.1.ip_address}"
     }
 }
 
