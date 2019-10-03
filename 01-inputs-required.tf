@@ -8,9 +8,9 @@ variable "vm_name" {
   description                             = "Name of the virtual machine in azure"
 }
 
-variable "subnet_mgmt_id" {
-  description                             = "ID of the management subnet"
-}
+#variable "subnet_mgmt_id" {
+  #description                             = "ID of the management subnet"
+#}
 
 variable "lb_subnet_vip" {
   description                             = "Address Prefix for VIP IP Range"
