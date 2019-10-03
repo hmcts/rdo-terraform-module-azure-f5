@@ -15,7 +15,7 @@ resource "azurerm_route_table" "route_main" {
 }
 
 resource "azurerm_subnet_route_table_association" "route_association" {
-  subnet_id                                 = "${azurerm_subnet.f5_data_subnet}"
+  subnet_id                                 = "${azurerm_subnet.f5_data_subnet.id}"
   route_table_id                            = "${azurerm_route_table.route_main.id}"
 }
 
