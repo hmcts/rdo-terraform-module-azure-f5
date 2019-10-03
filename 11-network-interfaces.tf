@@ -31,7 +31,8 @@ resource "azurerm_network_interface" "nic_data" {
   enable_ip_forwarding                      = true                   
   ip_configuration {
     name                                    = "${var.vm_name}-${var.environment}-data-nic-${count.index}"
-    subnet_id                               = "${var.nic_vip_id}"
+    #subnet_id                               = "${var.nic_vip_id}"
+    subnet_id                               = "${azurerm_subnet.f5_data_subnet.id}"
     private_ip_address_allocation           = "dynamic"
   }
 

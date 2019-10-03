@@ -24,9 +24,9 @@ variable "vm_password" {
   description                             = "Password to use for the appliance"
 }
 
-variable "nic_vip_id" {
-  description                             = "ID of the NIC to be used for vip access"
-}
+#variable "nic_vip_id" {
+  #description                             = "ID of the NIC to be used for vip access"
+#}
 
 variable "selfip_private_ip" {
   description                             = "Needs to be the F5 IP Address"
