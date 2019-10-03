@@ -16,7 +16,7 @@ resource "azurerm_network_interface" "nic_mgmt" {
   count                                     = "2"
   ip_configuration {
     name                                    = "${var.vm_name}-${var.environment}-mgmt-nic-${count.index}"
-    subnet_id                               = "${var.subnet_mgmt_id}"
+    subnet_id                               = "${azurerm_subnet.f5_mgmt_subnet.id}"
     private_ip_address_allocation           = "dynamic"
     public_ip_address_id                    = "${element(azurerm_public_ip.pip_mgmt.*.id, count.index)}"
   }
