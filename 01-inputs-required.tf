@@ -12,9 +12,9 @@ variable "vm_name" {
   #description                             = "ID of the management subnet"
 #}
 
-variable "lb_subnet_vip" {
-  description                             = "Address Prefix for VIP IP Range"
-}
+#variable "lb_subnet_vip" {
+  #description                             = "Address Prefix for VIP IP Range"
+#}
 
 variable "vm_username" {
   description                             = "Username to use for the appliance"
