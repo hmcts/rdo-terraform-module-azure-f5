@@ -1,6 +1,8 @@
 #variable "rg_name" {
   #description                             = "Resource group to create the vm in"
 #}
+variable "nsg_key" {
+}
 
 variable "vm_name" {
   description                             = "Name of the virtual machine in azure"
