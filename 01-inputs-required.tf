@@ -99,3 +99,6 @@ variable "palo_lb_ip" {
 }
 
 variable "location" {}
+
+variable "env_name" {
+}
