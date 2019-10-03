@@ -58,25 +58,25 @@ variable "loadbalancer_rg_name" {
   description                             = ""
 }
 
-variable "loadbalancer_data_subnet_name" {
-  description                             = ""
-}
+#variable "loadbalancer_data_subnet_name" {
+  #description                             = ""
+#}
 
-variable "loadbalancer_data_subnet_id" {
-  description                             = ""
-}
+#variable "loadbalancer_data_subnet_id" {
+  #description                             = ""
+#}
 
 variable "loadbalancer_data_subnet_prefix" {
   description                             = ""
 }
 
-variable "loadbalancer_mgmt_subnet_name" {
-  description                             = ""
-}
+#variable "loadbalancer_mgmt_subnet_name" {
+  #description                             = ""
+#}
 
-variable "loadbalancer_mgmt_subnet_id" {
-  description                             = ""
-}
+#variable "loadbalancer_mgmt_subnet_id" {
+  #description                             = ""
+#}
 
 variable "loadbalancer_mgmt_subnet_prefix" {
   description                             = ""
