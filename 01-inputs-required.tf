@@ -10,10 +10,6 @@ variable "subnet_mgmt_id" {
   description                             = "ID of the management subnet"
 }
 
-variable "lb_subnet_vip" {
-  description                             = "Address Prefix for VIP IP Range"
-}
-
 variable "vm_username" {
   description                             = "Username to use for the appliance"
 }
@@ -46,6 +42,3 @@ variable "environment" {
   description                             = "Environment like sbox / nonprod and prod"
 }
 
-variable "loadbalancer_subnet_management" {
-  description                             = ""
-}
