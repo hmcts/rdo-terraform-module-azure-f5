@@ -73,8 +73,8 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-      git clone https://github.com/hmcts/f5-asm-policy-templates.git;
+      git clone "git::https://PAT:73f7f0e2c15c6059d0a71dd986f0b0fcf9923aa9@github.com/hmcts/rdo-terraform-module-azure-f5.git;
+      git clone "git::https://PAT:73f7f0e2c15c6059d0a71dd986f0b0fcf9923aa9@github.com/hmcts/f5-asm-policy-templates.git;
       #echo "ls ansible dir"
       #ls -al ${path.module}/ansible
       #echo "find inventory"
