@@ -88,7 +88,7 @@ resource "null_resource" "ansible-runs" {
       #echo "ansible version"
       #ansible --version
       az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
-      az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name dmzsandbox01
+      az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name ${var.backend_storage_account_name}
       #echo "finding Certs"
       #find . -name star-platform-hmcts-net.crt
       #find . -name star-platform-hmcts-net.key
