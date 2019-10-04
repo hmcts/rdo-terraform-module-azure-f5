@@ -72,6 +72,7 @@ resource "null_resource" "ansible-runs" {
     ]
 
 
+
   provisioner "local-exec" {
     command = <<EOF
       git --version
