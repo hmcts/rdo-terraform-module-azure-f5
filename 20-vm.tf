@@ -78,23 +78,9 @@ resource "null_resource" "ansible-runs" {
       git --version
       git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
       git clone https://github.com/hmcts/f5-asm-policy-templates.git;
-      #echo "ls ansible dir"
-      #ls -al ${path.module}/ansible
-      #echo "find inventory"
-      #find . -name inventory
-      #echo "find f5.yml"
-      #find . -name f5.yml
-      #echo "cat inventory"
-      #cat ./.terraform/modules/f5-01/ansible/inventory
-      #echo "cat f5.yml"
-      #cat ./.terraform/modules/f5-01/ansible/f5.yml
-      #echo "ansible version"
-      #ansible --version
-      az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+      az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
+      az account set -s ${var.subscription_id}
       az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name ${var.backend_storage_account_name}
-      #echo "finding Certs"
-      #find . -name star-platform-hmcts-net.crt
-      #find . -name star-platform-hmcts-net.key
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"

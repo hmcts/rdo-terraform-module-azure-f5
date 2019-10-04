@@ -21,10 +21,3 @@ resource "azurerm_public_ip" "pip_mgmt" {
   tags                                      = "${var.tags}"
 }
 
-#resource "azurerm_network_interface" "nic_vip" {
-#  name                                     = "${var.vm_name}-nic02"
-#  location                                 = "${data.azurerm_resource_group.rg.location}"
-#  resource_group_name                      = "${data.azurerm_resource_group.rg.name}"
-##  ip_configuration                        = "${var.vip_ip_configuration}"
-#  ip_configuration                         = "${element(var.vip_ip_configuration)}"
-#}
