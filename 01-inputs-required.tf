@@ -42,6 +42,6 @@ variable "environment" {
   description                             = "Environment like sbox / nonprod and prod"
 }
 
-variable "storageaccountname" {
+variable "backend_storage_account_name" {
   description                             = "Storage Account Name"
 }
