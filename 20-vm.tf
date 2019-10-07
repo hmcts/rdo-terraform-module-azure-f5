@@ -79,8 +79,8 @@ resource "null_resource" "ansible-runs" {
       /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
       /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git;
       az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
-      #az account set -s ${var.subscription_id}
-      #az account list -o table
+      az account set -s ${var.subscription_id}
+      az account list -o table
       #az storage blob download-batch -d ${path.module}/ansible/ --pattern star*.* -s certs --account-name ${var.backend_storage_account_name}
       #echo "Galaxy F5 playbook install"
       #ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
