@@ -75,9 +75,9 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git ${System.DefaultWorkingDirectory};
-      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git ${System.DefaultWorkingDirectory};
-      ls -al ${System.DefaultWorkingDirectory}
+      cd ${path.module}
+      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
+      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git;
       ls -al ${path.module}
       az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
       az account set -s ${var.subscription_id}
