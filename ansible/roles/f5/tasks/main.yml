@@ -17,7 +17,7 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-#- name: Use a file lookup to import PEM Certificate
+- name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
     state: present
