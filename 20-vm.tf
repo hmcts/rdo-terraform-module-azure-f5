@@ -75,11 +75,9 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git /home/vsts/work/1/a/dmz_infra/;
-      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git /home/vsts/work/1/a/dmz_infra/;
+      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git /home/vsts/work/1/a/dmz_infra/rdo-terraform-module-azure-f5;
+      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git /home/vsts/work/1/a/dmz_infra/f5-asm-policy-templates;
       ls -al ${path.module}
-      ls -al ${path.module}/f5-asm-policy-templates
-      ls -al ${path.module}/f5-asm-policy-templates/owasp_ready_template
       ls -al /home/vsts/work/1/a/dmz_infra/
       az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
       az account set -s ${var.subscription_id}
@@ -89,7 +87,7 @@ resource "null_resource" "ansible-runs" {
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"
       #ANSIBLE_DEBUG=1 # place before playbooks to debug
-      /usr/bin/ansible-playbook -i '/home/vsts/work/1/a/dmz_infra/ansible/inventory' '/home/vsts/work/1/a/dmz_infra/ansible/f5.yml' --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"' --extra-vars 'module_path="${path.module}"'
+      /usr/bin/ansible-playbook -i '${path.module}/ansible/inventory' '${path.module}/ansible/f5.yml' --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"' --extra-vars 'module_path="${path.module}"'
       EOF
   }
 }
