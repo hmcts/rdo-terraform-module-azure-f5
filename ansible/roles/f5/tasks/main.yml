@@ -21,7 +21,7 @@
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.crt') }}"
+    content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.crt') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
@@ -29,7 +29,7 @@
   bigip_ssl_key:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '/home/vsts/work/1/s/.terraform/modules/f5-01/ansible/star-platform-hmcts-net.key') }}"
+    content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
