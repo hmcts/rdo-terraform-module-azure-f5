@@ -75,8 +75,10 @@ resource "null_resource" "ansible-runs" {
 
   provisioner "local-exec" {
     command = <<EOF
-      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git;
-      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git;
+      /usr/bin/git clone https://github.com/hmcts/rdo-terraform-module-azure-f5.git ${System.DefaultWorkingDirectory};
+      /usr/bin/git clone https://github.com/hmcts/f5-asm-policy-templates.git ${System.DefaultWorkingDirectory};
+      ls -al ${System.DefaultWorkingDirectory}
+      ls -al ${path.module}
       az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
       az account set -s ${var.subscription_id}
       az account list -o table
@@ -84,7 +86,7 @@ resource "null_resource" "ansible-runs" {
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"
-      ANSIBLE_DEBUG=1 # place before playbooks to debug
+      #ANSIBLE_DEBUG=1 # place before playbooks to debug
       /usr/bin/ansible-playbook -i '${path.module}/ansible/inventory' '${path.module}/ansible/f5.yml' --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"' --extra-vars 'module_path="${path.module}"'
       EOF
   }
