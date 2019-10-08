@@ -87,8 +87,8 @@ resource "null_resource" "ansible-runs" {
       ANSIBLE_DEBUG=1 # place before playbooks to debug
       echo "testing_path"
       ls -al ${path.module}/ansible/
-      la -al ${path.module}
-      /usr/bin/ansible-playbook -i '${path.module}/ansible/inventory' rdo-terraform-module-azure-f5/ansible/f5.yml --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"' --extra-vars 'module_path="${path.module}"'
+      ls -al ${path.module}
+      /usr/bin/ansible-playbook -i '${path.module}/ansible/inventory' '${path.module}ansible/f5.yml' --extra-vars '{"provider":{"server": "${azurerm_public_ip.pip_mgmt.ip_address}", "server_port":"443", "user":"${var.vm_username}", "password":"${var.vm_password}", "validate_certs":"no", "timeout":"300"}}' --extra-vars 'f5_selfip="${var.selfip_private_ip}"' --extra-vars 'f5_selfsubnet="${var.selfip_subnet}"' --extra-vars 'as3_username="${var.as3_username}"' --extra-vars 'as3_password="${var.as3_password}"' --extra-vars 'default_gateway="${local.default_gateway}"' --extra-vars 'module_path="${path.module}"'
       EOF
   }
 }
