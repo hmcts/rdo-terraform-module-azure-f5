@@ -81,9 +81,6 @@ resource "null_resource" "ansible-runs" {
       ls -al ${path.module}/f5-asm-policy-templates
       ls -al ${path.module}/f5-asm-policy-templates/owasp_ready_template
       ls -al /home/vsts/work/1/a/dmz_infra/
-      tree /home/vsts/work/1/a/dmz_infra/
-      tree ${path.module}
-      tree /home/vsts/work/1/s
       az login --service-principal -u ${var.arm_client_id} -p ${var.arm_client_secret} --tenant ${var.arm_tenant_id}
       az account set -s ${var.subscription_id}
       az account list -o table
