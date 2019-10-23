@@ -61,8 +61,8 @@ data "template_file" "inventory" {
     vars = {
         admin_username                  = "${var.vm_username}"
         admin_password                  = "${var.vm_password}"
-        public_ip1                      = "${azurerm_public_ip.pip_mgmt.0.ip_address}"
-        public_ip2                      = "${azurerm_public_ip.pip_mgmt.1.ip_address}"
+   #     public_ip1                      = "${azurerm_public_ip.pip_mgmt.0.ip_address}"
+   #     public_ip2                      = "${azurerm_public_ip.pip_mgmt.1.ip_address}"
         private_ip1                     = "${azurerm_network_interface.nic_mgmt.0.private_ip_address}"
         private_ip2                     = "${azurerm_network_interface.nic_mgmt.1.private_ip_address}"
     }
@@ -87,7 +87,7 @@ resource "null_resource" "ansible-runs" {
     depends_on = [
        # "azurerm_virtual_machine.vm",
         "azurerm_network_interface.nic_mgmt",
-        "azurerm_public_ip.pip_mgmt"
+    #    "azurerm_public_ip.pip_mgmt"
     ]
 
   provisioner "local-exec" {

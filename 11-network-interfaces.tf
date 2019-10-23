@@ -1,12 +1,12 @@
-resource "azurerm_public_ip" "pip_mgmt" {
-  name                                      = "${var.vm_name}-${var.environment}-pip-${count.index}"
-  location                                  = "${azurerm_resource_group.f5-rg.location}"
-  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
-  allocation_method                         = "Static"
-  tags                                      = "${var.tags}"
-  count                                     = "2"
+#resource "azurerm_public_ip" "pip_mgmt" {
+#  name                                      = "${var.vm_name}-${var.environment}-pip-${count.index}"
+#  location                                  = "${azurerm_resource_group.f5-rg.location}"
+#  resource_group_name                       = "${azurerm_resource_group.f5-rg.name}"
+#  allocation_method                         = "Static"
+#  tags                                      = "${var.tags}"
+#  count                                     = "2"
 #  sku                                       = "Standard"
-}
+#}
 
 resource "azurerm_network_interface" "nic_mgmt" {
   name                                      = "${var.vm_name}-${var.environment}-mgmt-nic-${count.index}"
@@ -18,7 +18,7 @@ resource "azurerm_network_interface" "nic_mgmt" {
     name                                    = "${var.vm_name}-${var.environment}-mgmt-nic-${count.index}"
     subnet_id                               = "${azurerm_subnet.f5_mgmt_subnet.id}"
     private_ip_address_allocation           = "dynamic"
-    public_ip_address_id                    = "${element(azurerm_public_ip.pip_mgmt.*.id, count.index)}"
+#    public_ip_address_id                    = "${element(azurerm_public_ip.pip_mgmt.*.id, count.index)}"
   }
 }
 
