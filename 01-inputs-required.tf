@@ -88,8 +88,8 @@ variable "loadbalancer_address_space" {
   description                             = ""
 }
 
-variable "sub_full_name" {
-}
+# variable "sub_full_name" {
+# }
 
 variable "subscription" {
 }
