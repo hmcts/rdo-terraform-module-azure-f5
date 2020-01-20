@@ -13,3 +13,7 @@ output "f5_vnet_name" {
 output "f5_rg_name" {
   value = "${azurerm_resource_group.f5-rg.name}"
 }
+
+output "loadbalancer_address_space" {
+  value = "${module.f5-01.loadbalancer_address_space}"
+}
