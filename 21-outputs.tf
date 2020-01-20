@@ -15,5 +15,5 @@ output "f5_rg_name" {
 }
 
 output "loadbalancer_address_space" {
-  value = "${module.f5-01.loadbalancer_address_space}"
+  value = "${azurerm_virtual_network.f5_vnet.address_space}"
 }
