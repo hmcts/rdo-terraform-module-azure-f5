@@ -101,6 +101,8 @@ resource "null_resource" "ansible-runs" {
       find . -name f5.yml
       echo "ansible version"
       ansible --version
+      echo "git version"
+      git version
       git clone https://github.com/hmcts/f5-asm-policy-templates.git
 			cp ~/star-platform-hmcts-net.* ${path.module}/ansible
 			curl -o ${path.module}/ansible/files/f5-appsvcs-3.5.1-5.noarch.rpm  https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.6.0/f5-appsvcs-3.5.1-5.noarch.rpm
