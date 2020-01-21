@@ -99,10 +99,6 @@ resource "null_resource" "ansible-runs" {
       find . -name inventory
       echo "find f5.yml"
       find . -name f5.yml
-      echo "cat inventory"
-      cat ./.terraform/modules/f5-01/ansible/inventory
-      echo "cat f5.yml"
-      cat ./.terraform/modules/f5-01/ansible/f5.yml
       echo "ansible version"
       ansible --version
       git clone https://github.com/hmcts/f5-asm-policy-templates.git
