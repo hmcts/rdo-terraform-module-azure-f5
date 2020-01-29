@@ -1,7 +1,7 @@
 ---
 - name: Install AS3
   bigip_lx_package:
-    package: "{{ roles_path }}/{{ package }}"
+    package: "{{ role_path }}/{{ package }}"
     provider: "{{ provider }}"
   delegate_to: localhost
   
