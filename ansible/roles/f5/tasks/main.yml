@@ -19,6 +19,18 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
+## Nasty hack/tech debt:
+- name: Copy TLS material in place
+  copy:
+    src: "/srv/{{ item }}"
+    dest: "{{ module_path }}/ansible/{{ item }}"
+  loop:
+    - star-platform-hmcts-net.crt
+    - star-platform-hmcts-net.key
+  delegate_to: localhost
+## End of nasty hack
+    
+
 - name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
