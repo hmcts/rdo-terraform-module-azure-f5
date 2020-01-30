@@ -104,16 +104,16 @@ resource "null_resource" "ansible-runs" {
       echo "git version"
       git version
       git clone https://github.com/hmcts/f5-asm-policy-templates.git
-			cp ~/star-platform-hmcts-net.* ${path.module}/ansible/files/
+			#cp ~/star-platform-hmcts-net.* ${path.module}/ansible/files/
 			#curl -o ${path.module}/ansible/files/f5-appsvcs-3.5.1-5.noarch.rpm  https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.6.0/f5-appsvcs-3.5.1-5.noarch.rpm
-			curl -o /srv/f5-appsvcs-3.5.1-5.noarch.rpm  https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.6.0/f5-appsvcs-3.5.1-5.noarch.rpm
+			curl -o /srv/f5/f5-appsvcs-3.5.1-5.noarch.rpm  https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.6.0/f5-appsvcs-3.5.1-5.noarch.rpm
       echo "Listing ${path.module}"
       ls -la ${path.module}/ansible/files/
       echo "Listing /srv"
-      ls -la /srv      
+      ls -la /srv/f5      
       echo "finding Certs"
-      find . -name star-platform-hmcts-net.crt
-      find . -name star-platform-hmcts-net.key
+      #find . -name star-platform-hmcts-net.crt
+      #find . -name star-platform-hmcts-net.key
       echo "Galaxy F5 playbook install"
       ansible-galaxy install -f f5devcentral.f5ansible,v2019.7.5
       echo "F5 Playbook Run"

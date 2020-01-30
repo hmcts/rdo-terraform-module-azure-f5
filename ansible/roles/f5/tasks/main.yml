@@ -19,23 +19,23 @@
     provider:  "{{ provider }}"
   delegate_to: localhost
 
-## Nasty hack/tech debt:
-- name: Copy TLS material in place
-  copy:
-    src: "/srv/{{ item }}"
-    dest: "{{ module_path }}/ansible/{{ item }}"
-  loop:
-    - star-platform-hmcts-net.crt
-    - star-platform-hmcts-net.key
-  delegate_to: localhost
-## End of nasty hack
+### Nasty hack/tech debt:
+#- name: Copy TLS material in place
+  #copy:
+    #src: "/srv/{{ item }}"
+    #dest: "{{ module_path }}/ansible/{{ item }}"
+  #loop:
+    #- star-platform-hmcts-net.crt
+    #- star-platform-hmcts-net.key
+  #delegate_to: localhost
+### End of nasty hack
     
 
 - name: Use a file lookup to import PEM Certificate
   bigip_ssl_certificate:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.crt') }}"
+    content: "{{ lookup('file', '{{ package_path }}/star-platform-hmcts-net.crt') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 
@@ -43,7 +43,7 @@
   bigip_ssl_key:
     name: star-platform-hmcts-net
     state: present
-    content: "{{ lookup('file', '{{ module_path }}/ansible/star-platform-hmcts-net.key') }}"
+    content: "{{ lookup('file', '{{ package_path }}/star-platform-hmcts-net.key') }}"
     provider:  "{{ provider }}"
   delegate_to: localhost
 

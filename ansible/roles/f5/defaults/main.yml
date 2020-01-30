@@ -28,7 +28,7 @@ local_host_name: dmz.reform.hmcts.net
 from_address: dmz@reform.hmcts.net
 
 # iApp Install
-package_path: /srv
+package_path: /srv/f5
 package_filename: "f5-appsvcs-3.5.1-5.noarch.rpm"
 package: "{{ package_path }}/{{ package_filename }}"
 
