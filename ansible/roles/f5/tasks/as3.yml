@@ -1,4 +1,7 @@
 ---
+- debug:
+    var: package
+
 - name: Install AS3
   bigip_lx_package:
     package: "{{ package }}"
