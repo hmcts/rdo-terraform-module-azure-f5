@@ -2,15 +2,16 @@
 - debug:
     var: package
 
-- name: Install AS3
-  bigip_lx_package:
-    package: "{{ package }}"
-    provider: "{{ provider }}"
-  delegate_to: localhost
-  
 - name: Enable As3
   bigip_command:
     commands:
       - bash -c '/bin/touch /var/config/rest/iapps/enable'
     provider: "{{ provider }}"
   delegate_to: localhost
+
+- name: Install AS3
+  bigip_lx_package:
+    package: "{{ package }}"
+    provider: "{{ provider }}"
+  delegate_to: localhost
+  
