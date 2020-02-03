@@ -17,3 +17,7 @@ output "f5_rg_name" {
 output "loadbalancer_address_space" {
   value = "${azurerm_virtual_network.f5_vnet.address_space}"
 }
+
+output "f5_selfips" {
+  value = "${azurerm_network_interface.nic_data.*.private_ip_address}"
+}
